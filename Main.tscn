@@ -1,15 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://b01uuyb357ot5"]
+[gd_scene load_steps=13 format=3 uid="uid://b01uuyb357ot5"]
 
-[ext_resource type="Script" uid="uid://bp8b7cc5hxhu8" path="res://addons/hammer/Main.gd" id="1_3dxm6"]
+[ext_resource type="Script" uid="uid://bp8b7cc5hxhu8" path="res://addons/hammer/Core/ManageRoot.gd" id="1_3dxm6"]
 [ext_resource type="Script" uid="uid://32ljcrrr2y6o" path="res://addons/hammer/Core/MenuRoot.gd" id="2_uu6xs"]
-[ext_resource type="Script" uid="uid://c5escajvgk3a8" path="res://addons/hammer/Example/MainMenu.gd" id="3_cm0pq"]
-[ext_resource type="Script" uid="uid://cmf01r8tdndbo" path="res://addons/hammer/Example/OptionMenu.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://c5escajvgk3a8" path="res://Module/MainMenu.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://cmf01r8tdndbo" path="res://Module/OptionMenu.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://yc6hp6mbdk5u" path="res://addons/hammer/Core/SceneRoot.gd" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://dfahq7hhc3xoe" path="res://addons/hammer/Core/Scene.gd" id="6_3dxm6"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://Module/Player.tscn" id="7_lgr22"]
 
-[node name="ManageRoot" type="Node"]
+[sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_lgr22"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_trn2v"]
+sky_material = SubResource("ProceduralSkyMaterial_lgr22")
+
+[sub_resource type="Environment" id="Environment_03owx"]
+background_mode = 2
+sky = SubResource("Sky_trn2v")
+tonemap_mode = 2
+
+[node name="ManageRoot" type="Node" node_paths=PackedStringArray("MenuRootNode", "SceneRootNode")]
 script = ExtResource("1_3dxm6")
+MenuRootNode = NodePath("MenuRoot")
+SceneRootNode = NodePath("SceneRoot")
+ResourcePathTable = Dictionary[StringName, StringName]({
+&"Option": &"res://Option.tres"
+})
 metadata/_custom_type_script = "uid://bp8b7cc5hxhu8"
 
 [node name="MenuRoot" type="Control" parent="." node_paths=PackedStringArray("MenuNodeList")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,9 +93,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("4_cm0pq")
 TreeNode = NodePath("Tree")
-AlwaysOn = true
 
 [node name="Tree" type="Tree" parent="MenuRoot/SecondMenu"]
 layout_mode = 1
@@ -89,3 +116,30 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="SceneRoot" type="Node3D" parent="."]
+script = ExtResource("5_fos0i")
+metadata/_custom_type_script = "uid://yc6hp6mbdk5u"
+
+[node name="Scene" type="Node3D" parent="SceneRoot"]
+script = ExtResource("6_3dxm6")
+metadata/_custom_type_script = "uid://dfahq7hhc3xoe"
+
+[node name="Static" type="Node3D" parent="SceneRoot/Scene"]
+
+[node name="Floor" type="StaticBody3D" parent="SceneRoot/Scene/Static"]
+
+[node name="Mesh" type="MeshInstance3D" parent="SceneRoot/Scene/Static/Floor"]
+mesh = SubResource("QuadMesh_lgr22")
+
+[node name="Shape" type="CollisionShape3D" parent="SceneRoot/Scene/Static/Floor"]
+shape = SubResource("WorldBoundaryShape3D_lgr22")
+
+[node name="Player" parent="SceneRoot/Scene" instance=ExtResource("7_lgr22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Environment" type="WorldEnvironment" parent="SceneRoot/Scene"]
+environment = SubResource("Environment_03owx")
+
+[node name="Directional" type="DirectionalLight3D" parent="SceneRoot/Scene"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 1.0

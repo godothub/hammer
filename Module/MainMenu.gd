@@ -1,6 +1,6 @@
-extends MenuNode
+extends Menu
 
-@export var ItemNode:ItemList = $Item:
+@export var ItemNode:ItemList:
 	set(_item_node):
 		ItemNode = _item_node
 		ItemNode.item_selected.connect(Selected)

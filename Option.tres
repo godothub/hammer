@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="OptionResource" load_steps=2 format=3 uid="uid://2psqrdgdhq4h"]
+
+[ext_resource type="Script" uid="uid://dxkhkr6sd5jh7" path="res://Module/OptionResource.gd" id="1_ms3ke"]
+
+[resource]
+script = ExtResource("1_ms3ke")
+EnableShadow = true

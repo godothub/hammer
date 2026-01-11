@@ -7,6 +7,7 @@ class_name Player
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	pass
 
 func _input(_event: InputEvent) -> void:
 	PlayerRotate(_event)
