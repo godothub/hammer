@@ -7,34 +7,32 @@
 
 ## 开发线路
 
-### 基础功能
-* [ ] Option
-* [x] Character
-* [x] Player
-* [x] Organ
-* [x] Trigger
-* [x] Tool
-* [x] Scene
-* [x] Describe
+### 核心类
 
-### 功能完善
-* [ ] Option
-* [ ] Character
-* [ ] Player
-* [ ] Organ
-* [ ] Trigger
-* [ ] Tool
+#### 管理
+* [ ] ManageRoot
+
+#### 菜单
+* [x] MenuRoot
+* [x] Menu
+
+#### 游戏
+* [ ] GameRoot
 * [ ] Scene
-* [ ] Describe
+
+#### GUI
+* [ ] GUIRoot
+* [ ] GUI
+
+#### 附加
+* [x] Character
+* [x] Tool
 
 
-## 命名规范
+### 扩展类型
+* [ ] Falacity
 
-| 类型 | 示例 |
-| - | - |
-| 定值 | EXAMPLE_VAR |
-| 全局 | ExampleVar |
-| 形参 | _example_var |
-| 函数内 | example_var |
-| 类 | Example |
-| 函数 | ExampleFunc |
+* [x] Player
+* [ ] MenuItem
+* [ ] MenuOption
+* [ ] GUIDescribe

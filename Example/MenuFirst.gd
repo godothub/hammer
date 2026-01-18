@@ -1,3 +1,4 @@
+@tool
 extends Menu
 
 @export var ItemNode:ItemList:
@@ -23,15 +24,16 @@ func Flash() -> void:
 		ItemNode.add_item(_text)
 
 func Selected(_index:int) -> void:
+	var menu_root = get_node("..")
 	match TextList[_index]:
 		"Start":
-			MenuRootNode.ShowMenuNode("SecondMenu", "Game")
+			menu_root.ShowMenuTitle("Second", "Achieve")
 		"Option":
-			MenuRootNode.ShowMenuNode("SecondMenu", "Option")
+			menu_root.ShowMenuTitle("Second", "Option")
 		"Exit":
 			get_tree().quit()
 		"StartMenu":
-			MenuRootNode.ShowMenuNode("FirstMenu", "Start")
+			menu_root.ShowMenuTitle("First", "Start")
 
 func Command(_argument:String) -> void:
 	if not TextList:
@@ -46,3 +48,5 @@ func Command(_argument:String) -> void:
 
 func _ready() -> void:
 	AlwaysOn = true
+	Show()
+	Command("")

@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dc5hdt84wkldm"]
+[gd_scene load_steps=5 format=3 uid="uid://dc5hdt84wkldm"]
 
-[ext_resource type="Script" uid="uid://cmc1k5o7mus65" path="res://addons/hammer/Player.gd" id="1_kpjcp"]
-[ext_resource type="Script" uid="uid://tdpkyvrvi4vc" path="res://Module/PickTool.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://88xwkkapvnfb" path="res://Example/Player.gd" id="1_kpjcp"]
+[ext_resource type="Script" uid="uid://tdpkyvrvi4vc" path="res://Example/PickTool.gd" id="2_kne1u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("HeadNode", "CurrentTool", "ToolRay")]
 script = ExtResource("1_kpjcp")
@@ -28,3 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 script = ExtResource("2_kne1u")
 ObjectPos = NodePath("../Camera/Marker")
 metadata/_custom_type_script = "uid://tdpkyvrvi4vc"
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("CapsuleMesh_3qu6b")

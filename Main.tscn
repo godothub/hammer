@@ -1,41 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://b01uuyb357ot5"]
+[gd_scene load_steps=10 format=3 uid="uid://c563psmcp2jgp"]
 
-[ext_resource type="Script" uid="uid://bp8b7cc5hxhu8" path="res://addons/hammer/Core/ManageRoot.gd" id="1_3dxm6"]
-[ext_resource type="Script" uid="uid://32ljcrrr2y6o" path="res://addons/hammer/Core/MenuRoot.gd" id="2_uu6xs"]
-[ext_resource type="Script" uid="uid://c5escajvgk3a8" path="res://Module/MainMenu.gd" id="3_cm0pq"]
-[ext_resource type="Script" uid="uid://cmf01r8tdndbo" path="res://Module/OptionMenu.gd" id="4_cm0pq"]
-[ext_resource type="Script" uid="uid://yc6hp6mbdk5u" path="res://addons/hammer/Core/SceneRoot.gd" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://dfahq7hhc3xoe" path="res://addons/hammer/Core/Scene.gd" id="6_3dxm6"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://Module/Player.tscn" id="7_lgr22"]
+[ext_resource type="Script" uid="uid://cns4yrbb8bdx5" path="res://addons/Hammer/ManageRoot.gd" id="1_3dxm6"]
+[ext_resource type="Script" uid="uid://dw1brydowyx60" path="res://addons/Hammer/MenuRoot.gd" id="2_uu6xs"]
+[ext_resource type="Script" uid="uid://bk0nqhyp6ykgo" path="res://Example/MenuFirst.gd" id="3_cm0pq"]
+[ext_resource type="Script" uid="uid://c5w6tkt3h76a2" path="res://Example/MenuSecond.gd" id="4_cm0pq"]
+[ext_resource type="Script" uid="uid://cyjucdyela4s1" path="res://addons/Hammer/GameRoot.gd" id="5_fos0i"]
+[ext_resource type="Script" uid="uid://cjw4ye6mogcal" path="res://addons/Hammer/GUIRoot.gd" id="5_lgr22"]
+[ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://Scene/Scene0.tscn" id="6_3dxm6"]
+[ext_resource type="Script" uid="uid://drymbxhitn5qq" path="res://Example/GUIPlayer.gd" id="6_trn2v"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://Example/Player.tscn" id="9_03owx"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
-size = Vector2(20, 20)
-orientation = 1
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_lgr22"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_trn2v"]
-sky_material = SubResource("ProceduralSkyMaterial_lgr22")
-
-[sub_resource type="Environment" id="Environment_03owx"]
-background_mode = 2
-sky = SubResource("Sky_trn2v")
-tonemap_mode = 2
-
-[node name="ManageRoot" type="Node" node_paths=PackedStringArray("MenuRootNode", "SceneRootNode")]
+[node name="ManageRoot" type="Node" node_paths=PackedStringArray("MenuRootNode", "GUIRootNode", "GameRootNode")]
 script = ExtResource("1_3dxm6")
 MenuRootNode = NodePath("MenuRoot")
-SceneRootNode = NodePath("SceneRoot")
+GUIRootNode = NodePath("GUIRoot")
+GameRootNode = NodePath("GameRoot")
 ResourcePathTable = Dictionary[StringName, StringName]({
 &"Option": &"res://Option.tres"
 })
-metadata/_custom_type_script = "uid://bp8b7cc5hxhu8"
 
-[node name="MenuRoot" type="Control" parent="." node_paths=PackedStringArray("MenuNodeList")]
+[node name="MenuRoot" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -44,13 +28,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_uu6xs")
-MenuNodeList = {
-"FirstMenu": NodePath("FirstMenu"),
-"SecondMenu": NodePath("SecondMenu")
-}
-metadata/_custom_type_script = "uid://32ljcrrr2y6o"
 
-[node name="FirstMenu" type="Control" parent="MenuRoot" node_paths=PackedStringArray("ItemNode")]
+[node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("ItemNode")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,7 +40,7 @@ script = ExtResource("3_cm0pq")
 ItemNode = NodePath("Item")
 AlwaysOn = true
 
-[node name="Title" type="Label" parent="MenuRoot/FirstMenu"]
+[node name="Title" type="Label" parent="MenuRoot/First"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 64.0
@@ -73,7 +52,7 @@ theme_override_font_sizes/font_size = 64
 text = "Hammer"
 vertical_alignment = 1
 
-[node name="Item" type="ItemList" parent="MenuRoot/FirstMenu"]
+[node name="Item" type="ItemList" parent="MenuRoot/First"]
 layout_mode = 1
 anchors_preset = -1
 anchor_bottom = 1.0
@@ -85,8 +64,12 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 auto_width = true
 auto_height = true
+item_count = 3
+item_0/text = "Start"
+item_1/text = "Option"
+item_2/text = "Exit"
 
-[node name="SecondMenu" type="Control" parent="MenuRoot" node_paths=PackedStringArray("TreeNode")]
+[node name="Second" type="Control" parent="MenuRoot" node_paths=PackedStringArray("TreeNode")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,7 +80,7 @@ mouse_filter = 2
 script = ExtResource("4_cm0pq")
 TreeNode = NodePath("Tree")
 
-[node name="Tree" type="Tree" parent="MenuRoot/SecondMenu"]
+[node name="Tree" type="Tree" parent="MenuRoot/Second"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,32 +97,24 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("5_lgr22")
 
-[node name="SceneRoot" type="Node3D" parent="."]
+[node name="Player" type="Control" parent="GUIRoot"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_trn2v")
+metadata/_custom_type_script = "uid://qqivt16npt5h"
+
+[node name="GameRoot" type="Node3D" parent="." node_paths=PackedStringArray("PlayerNode")]
 script = ExtResource("5_fos0i")
-metadata/_custom_type_script = "uid://yc6hp6mbdk5u"
+PlayerNode = NodePath("Player")
+SceneDirectory = "res://Scene"
 
-[node name="Scene" type="Node3D" parent="SceneRoot"]
-script = ExtResource("6_3dxm6")
-metadata/_custom_type_script = "uid://dfahq7hhc3xoe"
+[node name="Scene0" parent="GameRoot" node_paths=PackedStringArray("EdgeFacilityList") instance=ExtResource("6_3dxm6")]
+EdgeFacilityList = {
+&"Scene1": NodePath("FacilityRoot/DoorPanel")
+}
 
-[node name="Static" type="Node3D" parent="SceneRoot/Scene"]
-
-[node name="Floor" type="StaticBody3D" parent="SceneRoot/Scene/Static"]
-
-[node name="Mesh" type="MeshInstance3D" parent="SceneRoot/Scene/Static/Floor"]
-mesh = SubResource("QuadMesh_lgr22")
-
-[node name="Shape" type="CollisionShape3D" parent="SceneRoot/Scene/Static/Floor"]
-shape = SubResource("WorldBoundaryShape3D_lgr22")
-
-[node name="Player" parent="SceneRoot/Scene" instance=ExtResource("7_lgr22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="Environment" type="WorldEnvironment" parent="SceneRoot/Scene"]
-environment = SubResource("Environment_03owx")
-
-[node name="Directional" type="DirectionalLight3D" parent="SceneRoot/Scene"]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
-directional_shadow_max_distance = 1.0
+[node name="Player" parent="GameRoot" instance=ExtResource("9_03owx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -6)

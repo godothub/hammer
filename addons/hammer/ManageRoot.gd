@@ -1,19 +1,24 @@
+@tool
 extends Node
 class_name ManageRoot
-## 对游戏进行管理
+## 所有子根节点的信息交换中心
 
 ## 菜单节点
-@export var MenuRootNode:MenuRoot = $MenuRoot:
+@export var MenuRootNode:MenuRoot:
 	set(_menu_root_node):
 		MenuRootNode = _menu_root_node
-		_menu_root_node.ManageRootNode = self
 		update_configuration_warnings()
 
-## 场景节点
-@export var SceneRootNode:SceneRoot = $SceneRoot:
-	set(_scene_root_node):
-		SceneRootNode = _scene_root_node
-		_scene_root_node.ManageRootNode = self
+## GUI节点
+@export var GUIRootNode:GUIRoot:
+	set(_gui_root_node):
+		GUIRootNode = _gui_root_node
+		update_configuration_warnings()
+
+## 游戏节点
+@export var GameRootNode:GameRoot:
+	set(_game_root_node):
+		GameRootNode = _game_root_node
 		update_configuration_warnings()
 
 
@@ -23,10 +28,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warning:PackedStringArray
 	if not MenuRootNode:
 		warning.append("MenuRootNode 不应为空")
-	if not SceneRootNode:
-		warning.append("SceneRootNode 不应为空")
+	if not GUIRootNode:
+		warning.append("GUIRootNode 不应为空")
+	if not GameRootNode:
+		warning.append("GameRootNode 不应为空")
 	return warning
-
 
 
 ## 资源
@@ -48,11 +54,13 @@ func ResourceSave(_tag:StringName, _resource:Resource) -> Error:
 	ResourceUpdateSignal.emit(_tag, _resource)
 	return error
 
-
 #func _ready() -> void:
+	#ResourceUpdateSignal.connect(a)
 	#var option:OptionResource = OptionResource.new()
 	#ResourceSave("Option", option)
-	#option = ResourceLoad("Option")
+#
+#func a(_tag:StringName, _resource:Resource):
+	#print(_tag)
 
 
 

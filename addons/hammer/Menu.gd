@@ -1,3 +1,4 @@
+@tool
 @abstract
 extends Control
 class_name Menu
@@ -5,12 +6,22 @@ class_name Menu
 ## 保持菜单显示状态，除非菜单自行隐藏或关闭
 @export var AlwaysOn:bool = false
 
-## 菜单根节点
-var MenuRootNode:MenuRoot
+## 获取菜单根节点
+func GetMenuRoot() -> MenuRoot:
+	return get_parent()
+
+## 警告信息
+func _get_configuration_warnings() -> PackedStringArray:
+	var warning:PackedStringArray
+	
+	if get_parent() is not MenuRoot:
+		warning.append("Menu 类型的父节点必须是 MenuRoot 类型")
+	
+	return warning
 
 ## 获取管理根节点
 func ManageRootNode() -> ManageRoot:
-	return MenuRootNode.ManageRootNode
+	return GetMenuRoot().GetManageRoot()
 
 ## 加载资源
 func ResourceLoad(_tag:StringName) -> Resource:
@@ -31,3 +42,6 @@ func Show() -> void:
 
 ## 用于传递页面能接受的指令，在 MenuRoot 的 ShowMenuNode 时会一并被调用
 @abstract func Command(_argument:String) -> void
+
+func _init() -> void:
+	tree_entered.connect(_get_configuration_warnings)

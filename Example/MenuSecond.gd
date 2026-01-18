@@ -1,3 +1,4 @@
+@tool
 extends Menu
 
 @export var TreeNode:Tree:
@@ -9,7 +10,7 @@ extends Menu
 enum MenuPageEnum {ArchiveMenu, OptionMenu}
 var MenuPage:MenuPageEnum
 
-var OptionItem:Dictionary = {
+@export var OptionItem:Dictionary = {
 	"WindowMode" : {
 		"Mode" : TreeItem.CELL_MODE_RANGE,
 		"Text" : "FullScreen,Windowed",
@@ -50,7 +51,7 @@ func Edit() -> void:
 ## 绘制存档页面
 func DrawArchivePage() -> void:
 	TreeNode.set_hide_root(true)
-	var root:TreeItem = TreeNode.create_item()
+	#var root:TreeItem = TreeNode.create_item()
 
 
 ## 绘制选项页面
@@ -76,8 +77,8 @@ func DrawOptionPage() -> void:
 		if argument.has("Text"):
 			item.set_text(1, argument["Text"])
 		if argument.has("Range"):
-			var range:Dictionary = argument["Range"]
-			item.set_range_config(1, range["Min"], range["Max"], range["Step"])
+			var value_range:Dictionary = argument["Range"]
+			item.set_range_config(1, value_range["Min"], value_range["Max"], value_range["Step"])
 			item.set_range(1, value)
 		
 		# 参数配置
@@ -91,8 +92,8 @@ func DrawOptionPage() -> void:
 				if argument.has("Text"):
 					item.set_text(1, argument["Text"])
 				if argument.has("Range"):
-					var range:Dictionary = argument["Range"]
-					item.set_range_config(1, range["Min"], range["Max"], range["Step"])
+					var value_range:Dictionary = argument["Range"]
+					item.set_range_config(1, value_range["Min"], value_range["Max"], value_range["Step"])
 					item.set_range(1, value)
 
 ## 存储参数
