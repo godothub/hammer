@@ -1,63 +1,104 @@
 @tool
 extends Node3D
 class_name GameRoot
-## 场景根节点
+## 游戏根节点
 
 
 ## 管理根节点
-func GetManageRoot() -> ManageRoot:
+func get_manage_root() -> ManageRoot:
 	return get_parent()
 
-## 玩家节点
-@export var PlayerNode:Player:
-	set(_player_node):
-		PlayerNode = _player_node
-		update_configuration_warnings()
 
 ## 警告信息
 func _get_configuration_warnings() -> PackedStringArray:
-	var warning:PackedStringArray
+	var warning: PackedStringArray
 	if get_parent() is not ManageRoot:
 		warning.append("GameRoot 类型的父节点必须是 ManageRoot 类型")
-	if not PlayerNode:
-		warning.append("PlayerNode 不应为空")
 	return warning
 
-# 场景
+
+# 无缝场景
 
 ## 场景文件目录
-@export_dir var SceneDirectory
+@export_dir var scene_directory: String = "res://Scene"
 
 ## 场景附加信号
-signal SceneAppendSignal(_file:StringName)
+signal scene_append_signal(_file: StringName)
+
+
 ## 附加场景
-func SceneAppend(_file:String) -> bool:
+func scene_append(_file: String) -> bool:
 	if get_node(_file):
 		return false
-	
-	var path:String = SceneDirectory.path_join(_file + ".tscn")
-	var scene:Scene = load(path).instantiate()
-	
+
+	var path: String = scene_directory.path_join(_file + ".tscn")
+	var scene: Scene = load(path).instantiate()
+
 	add_child(scene)
+	scene.owner = self
+
 	scene.set_name(_file)
 	scene.set_owner(self)
-	
-	SceneAppendSignal.emit(_file)
+
+	scene_append_signal.emit(_file)
 	return true
+
 
 ## 场景移除信号
-signal SceneRemoveSignal(_file:StringName)
+signal scene_remove_signal(_file: StringName)
+
+
 ## 场景移除
-func SceneRemove(_file:String) -> bool:
-	var scene:Scene = get_node(_file)
+func scene_remove(_file: String) -> bool:
+	var scene: Scene = get_node(_file)
 	if not scene:
 		return false
+	scene.owner = null
 	scene.queue_free()
-	SceneRemoveSignal.emit(_file)
+	scene_remove_signal.emit(_file)
 	return true
 
-func SceneNode(_file:String) -> Scene:
+
+func scene_node(_file: String) -> Scene:
 	return get_node(_file)
+
+
+# 场景加载
+
+## 存档位置
+@export_dir var achieve_directory: String = "res://Achieve"
+## 存档日期格式
+@export var achieve_file: String = "{year}-{month}-{day}-{hour}-{minute}-{second}"
+
+
+## 场景保存
+func achieve_save() -> bool:
+	for _child in get_children():
+		_child.owner = self
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(self)
+	var datetime_dict: Dictionary = Time.get_datetime_dict_from_system()
+	var file = achieve_file.format(datetime_dict) + ".tscn"
+	ResourceSaver.save(packed_scene, achieve_file.path_join(file))
+	return true
+
+
+## 加载存档
+func achieve_load(_file: StringName) -> void:
+	var manage_root = get_manage_root()
+	var achieve_game = ResourceLoader.load(achieve_directory.path_join(_file)).instantiate()
+	manage_root.remove_child.call_deferred(self)
+	manage_root.add_child.call_deferred(achieve_game)
+	manage_root.game_root = achieve_game
+	queue_free()
+
+
+## 清空存档
+func achieve_clear() -> bool:
+	var dir: DirAccess = DirAccess.open(achieve_directory)
+	var files: Array[StringName] = dir.get_files()
+	files.all(func(_file: StringName): dir.remove(_file))
+	return true
 
 
 func _init() -> void:

@@ -9,11 +9,36 @@ Enable developers to focus on 3D game development, making Godot as simple as Ham
 > The frequency of English updates may be slightly slower than that of Chinese.
 
 ## DevelopmentRoadmap
-* [ ] Option
+### CoreClass
+
+* [ ] ManageRoot
+
+#### Menu
+* [x] MenuRoot
+* [x] Menu
+
+#### Game
+* [ ] GameRoot
+* [ ] Scene
+
+* [x] Falacity
+
 * [x] Character
-* [x] Player
-* [x] Organ
-* [x] Trigger
 * [x] Tool
-* [x] Scene
-* [ ] Describe
+
+#### GUI
+* [ ] GUIRoot
+* [ ] GUI
+
+### ExampleClass
+
+* [x] Player
+
+* [ ] MenuOption
+* [ ] MenuTree
+
+* [ ] MenuItem
+* [ ] MenuOption
+
+* [ ] GUIDescribe
+* [ ] GUIPlayer

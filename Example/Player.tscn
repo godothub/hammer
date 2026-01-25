@@ -1,23 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc5hdt84wkldm"]
+[gd_scene load_steps=15 format=3 uid="uid://dc5hdt84wkldm"]
 
-[ext_resource type="Script" uid="uid://88xwkkapvnfb" path="res://Example/Player.gd" id="1_kpjcp"]
-[ext_resource type="Script" uid="uid://tdpkyvrvi4vc" path="res://Example/PickTool.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://dm0oviqoew42y" path="res://addons/Hammer/Character.gd" id="1_3qu6b"]
+[ext_resource type="Script" uid="uid://tdpkyvrvi4vc" path="res://example/PickTool.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://cwhrabb02ixin" path="res://addons/Hammer/Driver.gd" id="2_qyjt6"]
+[ext_resource type="Script" uid="uid://bw58p56r4k0bt" path="res://example/DriverGravity.gd" id="3_ougad"]
+[ext_resource type="Script" uid="uid://dgliwr2wnaf8j" path="res://example/DriverControl.gd" id="4_qyjt6"]
+[ext_resource type="Script" uid="uid://bp0lqf5fgqw0l" path="res://example/DriverImpactDamage.gd" id="5_w7xnp"]
+[ext_resource type="Script" uid="uid://b5e6lksx6exae" path="res://addons/Hammer/Posture.gd" id="6_w7xnp"]
+
+[sub_resource type="Resource" id="Resource_ougad"]
+script = ExtResource("4_qyjt6")
+mouse_sensitivity = null
+jump_speed = null
+enable = null
+metadata/_custom_type_script = "uid://dgliwr2wnaf8j"
+
+[sub_resource type="Resource" id="Resource_w7xnp"]
+script = ExtResource("3_ougad")
+metadata/_custom_type_script = "uid://bw58p56r4k0bt"
+
+[sub_resource type="Resource" id="Resource_0lqkq"]
+script = ExtResource("5_w7xnp")
+metadata/_custom_type_script = "uid://bp0lqf5fgqw0l"
+
+[sub_resource type="Resource" id="Resource_plr2f"]
+script = ExtResource("6_w7xnp")
+Speed = 1.0
+Accel = 1.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://b5e6lksx6exae"
+
+[sub_resource type="Resource" id="Resource_l3o15"]
+script = ExtResource("6_w7xnp")
+Speed = 3.0
+Accel = 6.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://b5e6lksx6exae"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("HeadNode", "CurrentTool", "ToolRay")]
-script = ExtResource("1_kpjcp")
-HeadNode = NodePath("Camera")
-CurrentTool = NodePath("PickTool")
-ToolRay = NodePath("Camera/Ray")
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head_node", "collide_node", "current_tool", "tool_ray")]
+script = ExtResource("1_3qu6b")
+head_node = NodePath("Camera")
+collide_node = NodePath("Shape")
+driver_list = Array[ExtResource("2_qyjt6")]([SubResource("Resource_ougad"), SubResource("Resource_w7xnp"), SubResource("Resource_0lqkq")])
+posture_table = Dictionary[StringName, ExtResource("6_w7xnp")]({
+&"Midair": SubResource("Resource_plr2f"),
+&"Stand": SubResource("Resource_l3o15")
+})
+current_tool = NodePath("PickTool")
+tool_ray = NodePath("Camera/Ray")
+metadata/_custom_type_script = "uid://dm0oviqoew42y"
 
 [node name="Shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_t6lng")
 
 [node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 current = true
 
 [node name="Ray" type="RayCast3D" parent="Camera"]
@@ -26,11 +70,13 @@ target_position = Vector3(0, 0, -10)
 [node name="Marker" type="Marker3D" parent="Camera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
-[node name="PickTool" type="Node3D" parent="." node_paths=PackedStringArray("ObjectPos")]
+[node name="PickTool" type="Node3D" parent="." node_paths=PackedStringArray("object_position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("2_kne1u")
-ObjectPos = NodePath("../Camera/Marker")
+object_position = NodePath("../Camera/Marker")
+Distance = null
 metadata/_custom_type_script = "uid://tdpkyvrvi4vc"
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3qu6b")

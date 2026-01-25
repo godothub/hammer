@@ -1,4 +1,6 @@
 extends Control
 class_name GUI
 
-var GUIRootNode:GUIRoot
+
+func GetGUIRoot() -> GUIRoot:
+	return get_parent()

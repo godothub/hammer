@@ -9,30 +9,29 @@
 
 ### 核心类
 
-#### 管理
 * [ ] ManageRoot
 
-#### 菜单
 * [x] MenuRoot
 * [x] Menu
 
-#### 游戏
 * [ ] GameRoot
 * [ ] Scene
-
-#### GUI
-* [ ] GUIRoot
-* [ ] GUI
-
-#### 附加
+* [x] Falacity
 * [x] Character
 * [x] Tool
 
+* [ ] GUIRoot
+* [ ] GUI
 
-### 扩展类型
-* [ ] Falacity
+### 扩展类
 
 * [x] Player
+
+* [ ] MenuOption
+* [ ] MenuTree
+
 * [ ] MenuItem
 * [ ] MenuOption
+
 * [ ] GUIDescribe
+* [ ] GUIPlayer

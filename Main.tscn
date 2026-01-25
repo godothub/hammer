@@ -1,23 +1,51 @@
-[gd_scene load_steps=10 format=3 uid="uid://c563psmcp2jgp"]
+[gd_scene load_steps=20 format=3 uid="uid://c563psmcp2jgp"]
 
-[ext_resource type="Script" uid="uid://cns4yrbb8bdx5" path="res://addons/Hammer/ManageRoot.gd" id="1_3dxm6"]
-[ext_resource type="Script" uid="uid://dw1brydowyx60" path="res://addons/Hammer/MenuRoot.gd" id="2_uu6xs"]
-[ext_resource type="Script" uid="uid://bk0nqhyp6ykgo" path="res://Example/MenuFirst.gd" id="3_cm0pq"]
-[ext_resource type="Script" uid="uid://c5w6tkt3h76a2" path="res://Example/MenuSecond.gd" id="4_cm0pq"]
-[ext_resource type="Script" uid="uid://cyjucdyela4s1" path="res://addons/Hammer/GameRoot.gd" id="5_fos0i"]
-[ext_resource type="Script" uid="uid://cjw4ye6mogcal" path="res://addons/Hammer/GUIRoot.gd" id="5_lgr22"]
-[ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://Scene/Scene0.tscn" id="6_3dxm6"]
-[ext_resource type="Script" uid="uid://drymbxhitn5qq" path="res://Example/GUIPlayer.gd" id="6_trn2v"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://Example/Player.tscn" id="9_03owx"]
+[ext_resource type="Script" uid="uid://cns4yrbb8bdx5" path="res://addons/Hammer/ManageRoot.gd" id="1_ycdy4"]
+[ext_resource type="Script" uid="uid://dw1brydowyx60" path="res://addons/Hammer/MenuRoot.gd" id="2_w48qg"]
+[ext_resource type="Script" uid="uid://bk0nqhyp6ykgo" path="res://example/MenuFirst.gd" id="3_vivmo"]
+[ext_resource type="Script" uid="uid://c5w6tkt3h76a2" path="res://example/MenuSecond.gd" id="4_2cqfq"]
+[ext_resource type="Script" uid="uid://cjw4ye6mogcal" path="res://addons/Hammer/GUIRoot.gd" id="5_yaehf"]
+[ext_resource type="Script" uid="uid://drymbxhitn5qq" path="res://example/GUIPlayer.gd" id="6_074og"]
+[ext_resource type="Script" uid="uid://cyjucdyela4s1" path="res://addons/Hammer/GameRoot.gd" id="7_cegan"]
+[ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="8_82xsv"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/Player.tscn" id="9_getpj"]
+[ext_resource type="Script" uid="uid://cwhrabb02ixin" path="res://addons/Hammer/Driver.gd" id="10_ryguw"]
+[ext_resource type="Script" uid="uid://dgliwr2wnaf8j" path="res://example/DriverControl.gd" id="11_d13ii"]
+[ext_resource type="Script" uid="uid://bw58p56r4k0bt" path="res://example/DriverGravity.gd" id="12_1u8w0"]
+[ext_resource type="Script" uid="uid://bp0lqf5fgqw0l" path="res://example/DriverImpactDamage.gd" id="13_0odxb"]
 
-[node name="ManageRoot" type="Node" node_paths=PackedStringArray("MenuRootNode", "GUIRootNode", "GameRootNode")]
-script = ExtResource("1_3dxm6")
-MenuRootNode = NodePath("MenuRoot")
-GUIRootNode = NodePath("GUIRoot")
-GameRootNode = NodePath("GameRoot")
-ResourcePathTable = Dictionary[StringName, StringName]({
-&"Option": &"res://Option.tres"
-})
+[sub_resource type="Resource" id="Resource_kjvhd"]
+script = ExtResource("11_d13ii")
+mouse_sensitivity = null
+jump_speed = null
+enable = null
+metadata/_custom_type_script = "uid://dgliwr2wnaf8j"
+
+[sub_resource type="Resource" id="Resource_5tuhn"]
+script = ExtResource("12_1u8w0")
+metadata/_custom_type_script = "uid://bw58p56r4k0bt"
+
+[sub_resource type="Resource" id="Resource_2gh4u"]
+script = ExtResource("13_0odxb")
+metadata/_custom_type_script = "uid://bp0lqf5fgqw0l"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2ibq"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_trn2v"]
+sky_material = SubResource("ProceduralSkyMaterial_c2ibq")
+
+[sub_resource type="Environment" id="Environment_j4qnp"]
+background_mode = 2
+sky = SubResource("Sky_trn2v")
+tonemap_mode = 2
+
+[node name="ManageRoot" type="Node" node_paths=PackedStringArray("menu_root", "gui_root", "game_root")]
+script = ExtResource("1_ycdy4")
+menu_root = NodePath("MenuRoot")
+gui_root = NodePath("GUIRoot")
+game_root = NodePath("GameRoot")
 
 [node name="MenuRoot" type="Control" parent="."]
 visible = false
@@ -27,18 +55,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_uu6xs")
+script = ExtResource("2_w48qg")
 
-[node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("ItemNode")]
+[node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("item_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("3_cm0pq")
-ItemNode = NodePath("Item")
-AlwaysOn = true
+script = ExtResource("3_vivmo")
+item_node = NodePath("Item")
+main_text_list = PackedStringArray("Start", "Option", "Exit")
+game_text_list = PackedStringArray("Continue", "Option", "StartMenu")
+always_on = true
 
 [node name="Title" type="Label" parent="MenuRoot/First"]
 layout_mode = 1
@@ -69,7 +99,8 @@ item_0/text = "Start"
 item_1/text = "Option"
 item_2/text = "Exit"
 
-[node name="Second" type="Control" parent="MenuRoot" node_paths=PackedStringArray("TreeNode")]
+[node name="Second" type="Control" parent="MenuRoot" node_paths=PackedStringArray("tree_node")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,8 +108,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("4_cm0pq")
-TreeNode = NodePath("Tree")
+script = ExtResource("4_2cqfq")
+tree_node = NodePath("Tree")
 
 [node name="Tree" type="Tree" parent="MenuRoot/Second"]
 layout_mode = 1
@@ -94,27 +125,52 @@ grow_vertical = 2
 
 [node name="GUIRoot" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_lgr22")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_yaehf")
 
-[node name="Player" type="Control" parent="GUIRoot"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_trn2v")
+[node name="Player" type="Control" parent="GUIRoot" node_paths=PackedStringArray("health_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_074og")
+health_node = NodePath("Health")
+player_node = NodePath("../../GameRoot/Player")
 metadata/_custom_type_script = "uid://qqivt16npt5h"
 
-[node name="GameRoot" type="Node3D" parent="." node_paths=PackedStringArray("PlayerNode")]
-script = ExtResource("5_fos0i")
-PlayerNode = NodePath("Player")
-SceneDirectory = "res://Scene"
+[node name="Health" type="ProgressBar" parent="GUIRoot/Player"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -96.0
+offset_right = 384.0
+offset_bottom = -64.0
+grow_vertical = 0
+value = 100.0
 
-[node name="Scene0" parent="GameRoot" node_paths=PackedStringArray("EdgeFacilityList") instance=ExtResource("6_3dxm6")]
-EdgeFacilityList = {
+[node name="GameRoot" type="Node3D" parent="."]
+script = ExtResource("7_cegan")
+metadata/_custom_type_script = "uid://cyjucdyela4s1"
+
+[node name="Scene0" parent="GameRoot" node_paths=PackedStringArray("edge_facility_table") instance=ExtResource("8_82xsv")]
+edge_facility_table = {
 &"Scene1": NodePath("FacilityRoot/DoorPanel")
 }
 
-[node name="Player" parent="GameRoot" instance=ExtResource("9_03owx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -6)
+[node name="Player" parent="GameRoot" instance=ExtResource("9_getpj")]
+driver_list = Array[ExtResource("10_ryguw")]([SubResource("Resource_kjvhd"), SubResource("Resource_5tuhn"), SubResource("Resource_2gh4u")])
+
+[node name="Directional" type="DirectionalLight3D" parent="GameRoot"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Environment" type="WorldEnvironment" parent="GameRoot"]
+environment = SubResource("Environment_j4qnp")

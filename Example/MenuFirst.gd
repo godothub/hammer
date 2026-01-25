@@ -1,52 +1,48 @@
 @tool
 extends Menu
 
-@export var ItemNode:ItemList:
+@export var item_node: ItemList:
 	set(_item_node):
-		ItemNode = _item_node
-		ItemNode.item_selected.connect(Selected)
+		item_node = _item_node
+		item_node.item_selected.connect(selected)
 
-var TextList:PackedStringArray
-const MainTextList:PackedStringArray = [
-	"Start",
-	"Option",
-	"Exit"
-]
-const GameTextList:PackedStringArray = [
-	"Continue",
-	"Option",
-	"StartMenu"
-]
+var text_list:PackedStringArray
+@export var main_text_list:PackedStringArray = ["Start", "Option", "Exit"]
+@export var game_text_list:PackedStringArray = ["Continue", "Option", "StartMenu"]
 
-func Flash() -> void:
-	ItemNode.clear()
-	for _text in TextList:
-		ItemNode.add_item(_text)
 
-func Selected(_index:int) -> void:
-	var menu_root = get_node("..")
-	match TextList[_index]:
+func flash() -> void:
+	item_node.clear()
+	for _text in text_list:
+		item_node.add_item(_text)
+
+
+func selected(_index: int) -> void:
+	var menu_root:MenuRoot = get_menu_root()
+	match text_list[_index]:
 		"Start":
-			menu_root.ShowMenuTitle("Second", "Achieve")
+			menu_root.menu_show_by_title("Second", "Achieve")
 		"Option":
-			menu_root.ShowMenuTitle("Second", "Option")
+			menu_root.menu_show_by_title("Second", "Option")
 		"Exit":
 			get_tree().quit()
 		"StartMenu":
-			menu_root.ShowMenuTitle("First", "Start")
+			menu_root.menu_show_by_title("First", "Start")
 
-func Command(_argument:String) -> void:
-	if not TextList:
-		TextList = MainTextList
+
+func command(_argument: String) -> void:
+	if not text_list:
+		text_list = main_text_list
 	else:
 		match _argument:
 			"Start":
-				TextList = MainTextList
+				text_list = main_text_list
 			"Game":
-				TextList = GameTextList
-	Flash()
+				text_list = game_text_list
+	flash()
+
 
 func _ready() -> void:
-	AlwaysOn = true
-	Show()
-	Command("")
+	always_on = true
+	show()
+	command("")

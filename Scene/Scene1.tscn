@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://crxcdfwswqms4"]
+[gd_scene load_steps=14 format=3 uid="uid://crxcdfwswqms4"]
 
 [ext_resource type="Script" uid="uid://bdjbkukm3dr6a" path="res://addons/Hammer/Scene.gd" id="1_pyta8"]
-[ext_resource type="Script" uid="uid://blo8vabuni5fl" path="res://Example/FacilityArea.gd" id="3_pyta8"]
-[ext_resource type="Script" uid="uid://jswqhsfjgrwi" path="res://Example/FacilityPanel.gd" id="4_xawni"]
+[ext_resource type="Script" uid="uid://blo8vabuni5fl" path="res://example/FacilityArea.gd" id="3_pyta8"]
+[ext_resource type="Script" uid="uid://jswqhsfjgrwi" path="res://example/FacilityPanel.gd" id="4_xawni"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
 size = Vector2(20, 20)
@@ -34,30 +34,12 @@ size = Vector3(2, 0.2, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_xawni"]
 size = Vector3(2, 0.2, 2)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgr22"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_trn2v"]
-sky_material = SubResource("ProceduralSkyMaterial_lgr22")
-
-[sub_resource type="Environment" id="Environment_03owx"]
-background_mode = 2
-sky = SubResource("Sky_trn2v")
-tonemap_mode = 2
-
-[node name="Scene1" type="Node3D" node_paths=PackedStringArray("EdgeFacilityList")]
+[node name="Scene1" type="Node3D" node_paths=PackedStringArray("edge_facility_table")]
 script = ExtResource("1_pyta8")
-EdgeFacilityList = {
+edge_facility_table = {
 &"Scene0": NodePath("FacilityRoot/DoorPanel")
 }
 metadata/_custom_type_script = "uid://bdjbkukm3dr6a"
-
-[node name="LightRoot" type="Node3D" parent="."]
-
-[node name="Directional" type="DirectionalLight3D" parent="LightRoot"]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
 
 [node name="StaticRoot" type="Node3D" parent="."]
 
@@ -92,10 +74,10 @@ shape = SubResource("BoxShape3D_trn2v")
 
 [node name="FacilityRoot" type="Node3D" parent="."]
 
-[node name="FacilityArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("Area")]
+[node name="FacilityArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 script = ExtResource("3_pyta8")
-Area = NodePath("Area")
+area = NodePath("Area")
 metadata/_custom_type_script = "uid://2303rx1u6lvj"
 
 [node name="Area" type="Area3D" parent="FacilityRoot/FacilityArea"]
@@ -104,19 +86,20 @@ metadata/_custom_type_script = "uid://2303rx1u6lvj"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
 shape = SubResource("BoxShape3D_eoyd3")
 
-[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("PanelNode", "PointNode", "DependFacilityList")]
+[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("panel_node", "point_node", "depend_facility_list")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 script = ExtResource("4_xawni")
-PanelNode = NodePath("Static")
-PointNode = NodePath("Marker")
-Enable = false
-DependFacilityList = [NodePath("../FacilityArea")]
+panel_node = NodePath("Static")
+point_node = NodePath("Marker")
+enable = false
+depend_facility_list = [NodePath("../FacilityArea")]
 metadata/_custom_type_script = "uid://2303rx1u6lvj"
 
 [node name="Marker" type="Marker3D" parent="FacilityRoot/FacilityPanel"]
 transform = Transform3D(1, 0, 0, 0, 0.7071067, -0.7071067, 0, 0.7071067, 0.7071067, 0, 1, -1)
 
 [node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityPanel"]
+transform = Transform3D(1, 0, 0, 0, 0.99999857, 0, 0, 0, 0.99999857, 0, 0, 0)
 
 [node name="Shape" type="CollisionShape3D" parent="FacilityRoot/FacilityPanel/Static"]
 shape = SubResource("BoxShape3D_bwvie")
@@ -124,10 +107,10 @@ shape = SubResource("BoxShape3D_bwvie")
 [node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityPanel/Static"]
 mesh = SubResource("BoxMesh_bhfib")
 
-[node name="DoorArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("Area")]
+[node name="DoorArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9)
 script = ExtResource("3_pyta8")
-Area = NodePath("Area")
+area = NodePath("Area")
 metadata/_custom_type_script = "uid://2303rx1u6lvj"
 
 [node name="Area" type="Area3D" parent="FacilityRoot/DoorArea"]
@@ -135,13 +118,13 @@ metadata/_custom_type_script = "uid://2303rx1u6lvj"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/DoorArea/Area"]
 shape = SubResource("BoxShape3D_88sdf")
 
-[node name="DoorPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("PanelNode", "PointNode", "DependFacilityList")]
+[node name="DoorPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("panel_node", "point_node", "depend_facility_list")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, 10)
 script = ExtResource("4_xawni")
-PanelNode = NodePath("Static")
-PointNode = NodePath("Marker")
-Enable = false
-DependFacilityList = [NodePath("../DoorArea")]
+panel_node = NodePath("Static")
+point_node = NodePath("Marker")
+enable = false
+depend_facility_list = [NodePath("../DoorArea")]
 metadata/_custom_type_script = "uid://2303rx1u6lvj"
 
 [node name="Marker" type="Marker3D" parent="FacilityRoot/DoorPanel"]
@@ -154,6 +137,3 @@ shape = SubResource("BoxShape3D_pyta8")
 
 [node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/DoorPanel/Static"]
 mesh = SubResource("BoxMesh_xawni")
-
-[node name="Environment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_03owx")
