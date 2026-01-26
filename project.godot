@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="hammer-example"
-run/main_scene="uid://c563psmcp2jgp"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [display]
@@ -25,7 +24,7 @@ project/assembly_name="hammer-example"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Hammer/plugin.cfg", "res://addons/hammer/plugin.cfg")
+enabled=PackedStringArray("res://addons/hammer/plugin.cfg")
 
 [input]
 

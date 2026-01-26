@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://c88oyk8edfseu"]
 
-[ext_resource type="Script" uid="uid://cyjucdyela4s1" path="res://addons/Hammer/GameRoot.gd" id="1_xalp4"]
+[ext_resource type="Script" path="res://addons/Hammer/GameRoot.gd" id="1_xalp4"]
 [ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="2_ifd2l"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/Player.tscn" id="4_esy64"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="4_esy64"]
 
 [node name="GameRoot" type="Node3D" node_paths=PackedStringArray("PlayerNode")]
 script = ExtResource("1_xalp4")

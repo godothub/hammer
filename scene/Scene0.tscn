@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://1rdayww5ebh3"]
 
-[ext_resource type="Script" uid="uid://bdjbkukm3dr6a" path="res://addons/Hammer/Scene.gd" id="1_r8mh2"]
-[ext_resource type="Script" uid="uid://blo8vabuni5fl" path="res://example/FacilityArea.gd" id="5_awyxq"]
-[ext_resource type="Script" uid="uid://jswqhsfjgrwi" path="res://example/FacilityPanel.gd" id="6_hp16u"]
+[ext_resource type="Script" uid="uid://bmpgjojudcg12" path="res://addons/hammer/scene.gd" id="1_r8mh2"]
+[ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://example/facility_area.gd" id="5_awyxq"]
+[ext_resource type="Script" uid="uid://sg74uc1vt2g4" path="res://example/facility_panel.gd" id="6_hp16u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
 size = Vector2(20, 20)

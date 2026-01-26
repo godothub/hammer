@@ -20,7 +20,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 # 无缝场景
 
 ## 场景文件目录
-@export_dir var scene_directory: String = "res://Scene"
+@export_dir var scene_directory: String = "res://scene"
 
 ## 场景附加信号
 signal scene_append_signal(_file: StringName)
@@ -66,7 +66,7 @@ func scene_node(_file: String) -> Scene:
 # 场景加载
 
 ## 存档位置
-@export_dir var achieve_directory: String = "res://Achieve"
+@export_dir var achieve_directory: String = "res://achieve"
 ## 存档日期格式
 @export var achieve_file: String = "{year}-{month}-{day}-{hour}-{minute}-{second}"
 

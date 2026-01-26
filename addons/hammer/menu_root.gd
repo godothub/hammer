@@ -24,7 +24,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 ## 配置文件目录
-@export_dir var ConfigDirectory: String = "res://Config"
+@export_dir var ConfigDirectory: String = "res://config"
 ## 配置更新信号
 signal ConfigUpdateSignal(_file: StringName, _config_file: ConfigFile)
 
