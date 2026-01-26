@@ -43,6 +43,5 @@ func command(_argument: String) -> void:
 
 
 func _ready() -> void:
-	always_on = true
 	show()
 	command("")

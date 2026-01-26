@@ -180,7 +180,7 @@ func _input(_event: InputEvent) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	## 驱动处理
 	for _driver: Driver in driver_list:

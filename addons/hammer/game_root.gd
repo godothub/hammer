@@ -62,9 +62,6 @@ func scene_remove(_file: String) -> bool:
 func scene_node(_file: String) -> Scene:
 	return get_node(_file)
 
-
-# 场景加载
-
 ## 存档位置
 @export_dir var achieve_directory: String = "res://achieve"
 ## 存档日期格式

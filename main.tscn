@@ -36,6 +36,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_4c57u")
+config_directory = null
 
 [node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("item_node")]
 layout_mode = 1
@@ -48,7 +49,6 @@ script = ExtResource("3_efxa6")
 item_node = NodePath("Item")
 main_text_list = PackedStringArray("Start", "Option", "Exit")
 game_text_list = PackedStringArray("Continue", "Option", "StartMenu")
-always_on = true
 
 [node name="Title" type="Label" parent="MenuRoot/First"]
 layout_mode = 1
@@ -80,7 +80,6 @@ item_1/text = "Option"
 item_2/text = "Exit"
 
 [node name="Second" type="Control" parent="MenuRoot" node_paths=PackedStringArray("tree_node")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

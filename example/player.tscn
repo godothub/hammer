@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dc5hdt84wkldm"]
 
-[ext_resource type="Script" uid="uid://cfsxkop6cmggc" path="res://addons/hammer/character.gd" id="1_3qu6b"]
+[ext_resource type="Script" uid="uid://6md5nw8dttud" path="res://addons/hammer/character.gd" id="1_3qu6b"]
 [ext_resource type="Script" uid="uid://b0a5gakn3hs7" path="res://example/pick_tool.gd" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://bol7b8gy3lfmo" path="res://addons/hammer/driver.gd" id="2_qyjt6"]
 [ext_resource type="Script" uid="uid://okdoof6ql2al" path="res://example/driver_gravity.gd" id="3_ougad"]

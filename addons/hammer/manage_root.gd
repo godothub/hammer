@@ -32,3 +32,21 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not game_root:
 		warning.append("game_root 不应为空")
 	return warning
+
+func _input(_event: InputEvent) -> void:
+	if game_root:
+		if _event.is_action_pressed("Esc"):
+			var game_process:ProcessMode = game_root.get_process_mode()
+			
+			if game_process == Node.PROCESS_MODE_DISABLED:
+				gui_root.show()
+				menu_root.hide()
+				game_root.set_process_mode(Node.PROCESS_MODE_INHERIT)
+			else:
+				gui_root.hide()
+				menu_root.show()
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				game_root.set_process_mode(Node.PROCESS_MODE_DISABLED)
+	else:
+		gui_root.hide()
+		menu_root.show()
