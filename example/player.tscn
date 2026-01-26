@@ -1,0 +1,77 @@
+[gd_scene load_steps=15 format=3 uid="uid://dc5hdt84wkldm"]
+
+[ext_resource type="Script" uid="uid://cfsxkop6cmggc" path="res://addons/hammer/character.gd" id="1_3qu6b"]
+[ext_resource type="Script" uid="uid://b0a5gakn3hs7" path="res://example/pick_tool.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://bol7b8gy3lfmo" path="res://addons/hammer/driver.gd" id="2_qyjt6"]
+[ext_resource type="Script" uid="uid://okdoof6ql2al" path="res://example/driver_gravity.gd" id="3_ougad"]
+[ext_resource type="Script" uid="uid://cnk5lb2l42pvb" path="res://example/driver_control.gd" id="4_qyjt6"]
+[ext_resource type="Script" uid="uid://buwhxu0ggk178" path="res://example/driver_impact_damage.gd" id="5_w7xnp"]
+[ext_resource type="Script" uid="uid://bbj4mfxdnpo4i" path="res://addons/hammer/posture.gd" id="6_w7xnp"]
+
+[sub_resource type="Resource" id="Resource_ougad"]
+script = ExtResource("4_qyjt6")
+metadata/_custom_type_script = "uid://dgliwr2wnaf8j"
+
+[sub_resource type="Resource" id="Resource_w7xnp"]
+script = ExtResource("3_ougad")
+metadata/_custom_type_script = "uid://bw58p56r4k0bt"
+
+[sub_resource type="Resource" id="Resource_0lqkq"]
+script = ExtResource("5_w7xnp")
+metadata/_custom_type_script = "uid://bp0lqf5fgqw0l"
+
+[sub_resource type="Resource" id="Resource_plr2f"]
+script = ExtResource("6_w7xnp")
+Speed = 1.0
+Accel = 1.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://b5e6lksx6exae"
+
+[sub_resource type="Resource" id="Resource_l3o15"]
+script = ExtResource("6_w7xnp")
+Speed = 3.0
+Accel = 6.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://b5e6lksx6exae"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head_node", "collide_node", "current_tool", "tool_ray")]
+script = ExtResource("1_3qu6b")
+head_node = NodePath("Camera")
+collide_node = NodePath("Shape")
+driver_list = Array[ExtResource("2_qyjt6")]([SubResource("Resource_ougad"), SubResource("Resource_w7xnp"), SubResource("Resource_0lqkq")])
+posture_table = Dictionary[StringName, ExtResource("6_w7xnp")]({
+&"Midair": SubResource("Resource_plr2f"),
+&"Stand": SubResource("Resource_l3o15")
+})
+current_tool = NodePath("PickTool")
+tool_ray = NodePath("Camera/Ray")
+
+[node name="Shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_t6lng")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+current = true
+
+[node name="Ray" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -10)
+
+[node name="Marker" type="Marker3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="PickTool" type="Node3D" parent="." node_paths=PackedStringArray("object_position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_kne1u")
+object_position = NodePath("../Camera/Marker")
+Distance = null
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_3qu6b")

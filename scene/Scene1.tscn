@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://crxcdfwswqms4"]
 
-[ext_resource type="Script" uid="uid://bmpgjojudcg12" path="res://addons/hammer/scene.gd" id="1_pyta8"]
+[ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/scene.gd" id="1_pyta8"]
 [ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://example/facility_area.gd" id="3_pyta8"]
 [ext_resource type="Script" uid="uid://sg74uc1vt2g4" path="res://example/facility_panel.gd" id="4_xawni"]
 
