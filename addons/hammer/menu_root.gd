@@ -3,10 +3,23 @@ extends Control
 class_name MenuRoot
 ## 所有菜单的根节点
 
-## 菜单根节点显示时，默认显示的菜单
+## 配置文件目录
+@export_dir var config_directory: String = "res://config"
+## 配置更新信号
+signal config_update_signal(_file: StringName, _config_file: ConfigFile)
+
+## 菜单根节点显示时，默认显示的菜单。
 @export var default_menu_list:Array[Menu]:
 	set(_default_menu_list):
+		var tmp_list:Array[Menu]
+		for _menu:Menu in _default_menu_list:
+			if _menu:
+				if not tmp_list.has(_menu):
+					tmp_list.append(_menu)
+			elif Engine.is_editor_hint():
+				tmp_list.append(_menu)
 		default_menu_list.clear()
+		default_menu_list = tmp_list
 
 ## 获取管理根节点
 func get_manage_root() -> ManageRoot:
@@ -25,12 +38,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 			warning.append(_node.get_name() + " 作为 MenuRoot 类型的子节点必须是 Menu 类型")
 
 	return warning
-
-
-## 配置文件目录
-@export_dir var config_directory: String = "res://config"
-## 配置更新信号
-signal config_update_signal(_file: StringName, _config_file: ConfigFile)
 
 
 ## 读取存储在 config_directory 目录下的配置文件
@@ -66,6 +73,23 @@ func menu_hide_by_title(_title: String) -> void:
 func menu_hide(_menu: Menu) -> void:
 	_menu.hide()
 
+## 刷新
+func flash_menu_root() -> void:
+	if not visible:
+		return
+	
+	for _menu:Menu in get_children():
+		if default_menu_list.has(_menu):
+			menu_show(_menu)
+		else:
+			menu_hide(_menu)
+
+
 func _init() -> void:
 	tree_entered.connect(update_configuration_warnings)
 	child_order_changed.connect(update_configuration_warnings)
+	if Engine.is_editor_hint():
+		return
+	
+	tree_entered.connect(flash_menu_root)
+	visibility_changed.connect(flash_menu_root)

@@ -1,14 +1,24 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnd0ec658wsvo"]
+[gd_scene load_steps=17 format=3 uid="uid://bnd0ec658wsvo"]
 
 [ext_resource type="Script" uid="uid://j7p8ithjpt57" path="res://addons/hammer/manage_root.gd" id="1_kek77"]
 [ext_resource type="Script" uid="uid://c3lclxvs3c0c6" path="res://addons/hammer/menu_root.gd" id="2_4c57u"]
-[ext_resource type="Script" uid="uid://ch2fx0nefaom2" path="res://example/menu_first.gd" id="3_efxa6"]
+[ext_resource type="Script" uid="uid://ch2fx0nefaom2" path="res://example/menu_item.gd" id="3_efxa6"]
 [ext_resource type="Script" uid="uid://dwo2k1gkev88y" path="res://example/menu_second.gd" id="4_dg77c"]
+[ext_resource type="Script" uid="uid://fpg84wv7gkn4" path="res://example/item.gd" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://lq77ujuwhyjq" path="res://addons/hammer/gui_root.gd" id="5_ycdy4"]
+[ext_resource type="Script" uid="uid://1l3yqw3yp36j" path="res://example/option.gd" id="6_efxa6"]
 [ext_resource type="Script" uid="uid://dnd3gmk78dssv" path="res://example/gui_player.gd" id="6_w48qg"]
 [ext_resource type="Script" uid="uid://cr3va2gavv6ux" path="res://addons/hammer/game_root.gd" id="7_vivmo"]
 [ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="8_2cqfq"]
 [ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="9_yaehf"]
+
+[sub_resource type="Resource" id="Resource_dg77c"]
+script = ExtResource("4_efxa6")
+metadata/_custom_type_script = "uid://fpg84wv7gkn4"
+
+[sub_resource type="Resource" id="Resource_efxa6"]
+script = ExtResource("6_efxa6")
+metadata/_custom_type_script = "uid://1l3yqw3yp36j"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2ibq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -28,7 +38,7 @@ menu_root = NodePath("MenuRoot")
 gui_root = NodePath("GUIRoot")
 game_root = NodePath("GameRoot")
 
-[node name="MenuRoot" type="Control" parent="."]
+[node name="MenuRoot" type="Control" parent="." node_paths=PackedStringArray("default_menu_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,9 +46,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_4c57u")
-config_directory = null
+default_menu_list = [NodePath("First")]
 
-[node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("item_node")]
+[node name="First" type="Control" parent="MenuRoot" node_paths=PackedStringArray("item_list_node")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,9 +56,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("3_efxa6")
-item_node = NodePath("Item")
-main_text_list = PackedStringArray("Start", "Option", "Exit")
-game_text_list = PackedStringArray("Continue", "Option", "StartMenu")
+a = Array[ExtResource("4_efxa6")]([SubResource("Resource_dg77c")])
+item_list_node = NodePath("Item")
+item_table = PackedStringArray("Archive", "Option", "Exit")
 
 [node name="Title" type="Label" parent="MenuRoot/First"]
 layout_mode = 1
@@ -72,10 +82,8 @@ offset_right = 384.0
 offset_bottom = -64.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-auto_width = true
-auto_height = true
 item_count = 3
-item_0/text = "Start"
+item_0/text = "Archive"
 item_1/text = "Option"
 item_2/text = "Exit"
 
@@ -88,6 +96,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_dg77c")
+a = Array[ExtResource("6_efxa6")]([SubResource("Resource_efxa6")])
 tree_node = NodePath("Tree")
 
 [node name="Tree" type="Tree" parent="MenuRoot/Second"]

@@ -63,9 +63,9 @@ func scene_node(_file: String) -> Scene:
 	return get_node(_file)
 
 ## 存档位置
-@export_dir var achieve_directory: String = "res://achieve"
+@export_dir var archive_directory: String = "res://archive"
 ## 存档日期格式
-@export var achieve_file: String = "{year}-{month}-{day}-{hour}-{minute}-{second}"
+@export var archive_file: String = "{year}-{month}-{day}-{hour}-{minute}-{second}"
 
 
 ## 场景保存
@@ -75,15 +75,15 @@ func achieve_save() -> bool:
 	var packed_scene = PackedScene.new()
 	packed_scene.pack(self)
 	var datetime_dict: Dictionary = Time.get_datetime_dict_from_system()
-	var file = achieve_file.format(datetime_dict) + ".tscn"
-	ResourceSaver.save(packed_scene, achieve_file.path_join(file))
+	var file = archive_file.format(datetime_dict) + ".tscn"
+	ResourceSaver.save(packed_scene, archive_directory.path_join(file))
 	return true
 
 
 ## 加载存档
 func achieve_load(_file: StringName) -> void:
 	var manage_root = get_manage_root()
-	var achieve_game = ResourceLoader.load(achieve_directory.path_join(_file)).instantiate()
+	var achieve_game = ResourceLoader.load(archive_directory.path_join(_file)).instantiate()
 	manage_root.remove_child.call_deferred(self)
 	manage_root.add_child.call_deferred(achieve_game)
 	manage_root.game_root = achieve_game
@@ -92,7 +92,7 @@ func achieve_load(_file: StringName) -> void:
 
 ## 清空存档
 func achieve_clear() -> bool:
-	var dir: DirAccess = DirAccess.open(achieve_directory)
+	var dir: DirAccess = DirAccess.open(archive_directory)
 	var files: Array[StringName] = dir.get_files()
 	files.all(func(_file: StringName): dir.remove(_file))
 	return true
