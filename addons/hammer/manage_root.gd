@@ -36,17 +36,31 @@ func _get_configuration_warnings() -> PackedStringArray:
 func _input(_event: InputEvent) -> void:
 	if game_root:
 		if _event.is_action_pressed("Esc"):
-			var game_process:ProcessMode = game_root.get_process_mode()
-			
-			if game_process == Node.PROCESS_MODE_DISABLED:
-				gui_root.show()
-				menu_root.hide()
-				game_root.set_process_mode(Node.PROCESS_MODE_INHERIT)
-			else:
-				gui_root.hide()
-				menu_root.show()
-				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-				game_root.set_process_mode(Node.PROCESS_MODE_DISABLED)
+			game_status_switch()
 	else:
 		gui_root.hide()
 		menu_root.show()
+
+func game_status_switch() -> void:
+	var game_process:ProcessMode = game_root.get_process_mode()
+	if game_process == Node.PROCESS_MODE_DISABLED:
+		game_status_running()
+	else:
+		game_status_stopping()
+
+## 更变游戏状态为运行
+func game_status_running() -> void:
+	gui_root.show()
+	menu_root.hide()
+	game_root.set_process_mode(Node.PROCESS_MODE_INHERIT)
+
+## 更变游戏姿态为暂停
+func game_status_stopping() -> void:
+	gui_root.hide()
+	menu_root.show()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	game_root.set_process_mode(Node.PROCESS_MODE_DISABLED)
+
+
+func _ready() -> void:
+	game_status_stopping()

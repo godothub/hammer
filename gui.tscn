@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://b2kf3odiuiwka"]
+
+[ext_resource type="Script" uid="uid://lq77ujuwhyjq" path="res://addons/hammer/gui_root.gd" id="1_6lon5"]
+[ext_resource type="Script" uid="uid://dnd3gmk78dssv" path="res://example/gui_player.gd" id="2_q8o8l"]
+
+[node name="GUIRoot" type="Control" unique_id=398983448]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6lon5")
+
+[node name="Player" type="Control" parent="." unique_id=1012089653 node_paths=PackedStringArray("health_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_q8o8l")
+health_node = NodePath("Health")
+player_name = null
+
+[node name="Health" type="ProgressBar" parent="Player" unique_id=624292886]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -96.0
+offset_right = 384.0
+offset_bottom = -64.0
+grow_vertical = 0
+value = 100.0

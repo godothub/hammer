@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dc5hdt84wkldm"]
+[gd_scene format=3 uid="uid://dc5hdt84wkldm"]
 
 [ext_resource type="Script" uid="uid://6md5nw8dttud" path="res://addons/hammer/character.gd" id="1_3qu6b"]
 [ext_resource type="Script" uid="uid://b0a5gakn3hs7" path="res://example/pick_tool.gd" id="2_kne1u"]
@@ -6,19 +6,21 @@
 [ext_resource type="Script" uid="uid://okdoof6ql2al" path="res://example/driver_gravity.gd" id="3_ougad"]
 [ext_resource type="Script" uid="uid://cnk5lb2l42pvb" path="res://example/driver_control.gd" id="4_qyjt6"]
 [ext_resource type="Script" uid="uid://buwhxu0ggk178" path="res://example/driver_impact_damage.gd" id="5_w7xnp"]
+[ext_resource type="Script" uid="uid://jvgu25qx6jkr" path="res://example/driver_auto_recovery.gd" id="6_6dmbd"]
 [ext_resource type="Script" uid="uid://bbj4mfxdnpo4i" path="res://addons/hammer/posture.gd" id="6_w7xnp"]
 
 [sub_resource type="Resource" id="Resource_ougad"]
 script = ExtResource("4_qyjt6")
-metadata/_custom_type_script = "uid://dgliwr2wnaf8j"
 
 [sub_resource type="Resource" id="Resource_w7xnp"]
 script = ExtResource("3_ougad")
-metadata/_custom_type_script = "uid://bw58p56r4k0bt"
 
 [sub_resource type="Resource" id="Resource_0lqkq"]
 script = ExtResource("5_w7xnp")
-metadata/_custom_type_script = "uid://bp0lqf5fgqw0l"
+
+[sub_resource type="Resource" id="Resource_0dxee"]
+script = ExtResource("6_6dmbd")
+metadata/_custom_type_script = "uid://jvgu25qx6jkr"
 
 [sub_resource type="Resource" id="Resource_plr2f"]
 script = ExtResource("6_w7xnp")
@@ -40,11 +42,11 @@ metadata/_custom_type_script = "uid://b5e6lksx6exae"
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head_node", "collide_node", "current_tool", "tool_ray")]
+[node name="Player" type="CharacterBody3D" unique_id=1342642999 node_paths=PackedStringArray("head_node", "collide_node", "current_tool", "tool_ray")]
 script = ExtResource("1_3qu6b")
 head_node = NodePath("Camera")
 collide_node = NodePath("Shape")
-driver_list = Array[ExtResource("2_qyjt6")]([SubResource("Resource_ougad"), SubResource("Resource_w7xnp"), SubResource("Resource_0lqkq")])
+driver_list = Array[ExtResource("2_qyjt6")]([SubResource("Resource_ougad"), SubResource("Resource_w7xnp"), SubResource("Resource_0lqkq"), SubResource("Resource_0dxee")])
 posture_table = Dictionary[StringName, ExtResource("6_w7xnp")]({
 &"Midair": SubResource("Resource_plr2f"),
 &"Stand": SubResource("Resource_l3o15")
@@ -52,26 +54,26 @@ posture_table = Dictionary[StringName, ExtResource("6_w7xnp")]({
 current_tool = NodePath("PickTool")
 tool_ray = NodePath("Camera/Ray")
 
-[node name="Shape" type="CollisionShape3D" parent="."]
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=1698978153]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_t6lng")
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="." unique_id=620027590]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 current = true
 
-[node name="Ray" type="RayCast3D" parent="Camera"]
+[node name="Ray" type="RayCast3D" parent="Camera" unique_id=496919843]
 target_position = Vector3(0, 0, -10)
 
-[node name="Marker" type="Marker3D" parent="Camera"]
+[node name="Marker" type="Marker3D" parent="Camera" unique_id=570627198]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
-[node name="PickTool" type="Node3D" parent="." node_paths=PackedStringArray("object_position")]
+[node name="PickTool" type="Node3D" parent="." unique_id=322224816 node_paths=PackedStringArray("object_position")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("2_kne1u")
 object_position = NodePath("../Camera/Marker")
 Distance = null
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1003098324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3qu6b")

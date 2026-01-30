@@ -8,7 +8,7 @@ class_name GUIPlayer
 		health_node = _health_node
 		update_configuration_warnings()
 
-@export_node_path("Character") var player_node
+@export var player_name:StringName
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warning: PackedStringArray
@@ -22,6 +22,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
-	var player:Character = get_node(player_node)
+	
+	var player:Character = get_gui_root().get_manage_root().game_root.get_node("Player")
 	if player:
 		health_node.value = player.health_value

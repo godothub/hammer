@@ -35,6 +35,7 @@ class_name Character
 		driver_list = tmp_dirver_list
 
 @export_group("Health")
+signal health_updated_signal(_delta:float)
 ## 最大健康值
 @export var health_max: float = 100:
 	set(_health_max):
@@ -43,7 +44,10 @@ class_name Character
 ## 健康值
 @export var health_value: float = 100:
 	set(_health_value):
-		health_value = clampf(_health_value, 0, health_max)
+		if health_value < 0:
+			pass
+		else:
+			health_value = clampf(_health_value, 0, health_max)
 
 @export_group("Postrue")
 ## 姿态名称
@@ -141,9 +145,9 @@ func add_tool(_tool: Tool) -> bool:
 
 
 ## 移除工具
-func remove_tool(_tool: Tool):
+func remove_tool(_tool: Tool) -> bool:
 	tool_list.erase(_tool)
-
+	return true
 
 func _init() -> void:
 	if Engine.is_editor_hint():
@@ -180,11 +184,9 @@ func _input(_event: InputEvent) -> void:
 	if Engine.is_editor_hint():
 		return
 
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 	## 驱动处理
 	for _driver: Driver in driver_list:
 		if _driver.enable:
 			_driver._input(_event, self)
-	# 驱动器处理
-	#DriverCall("ImputProcess", _event)

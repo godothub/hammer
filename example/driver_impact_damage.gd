@@ -6,7 +6,7 @@ class_name ImpactDamageDriver
 var speed_record: float = 0
 
 @export var impact_speed_threshold: float = 10  ## 冲击速度阈值
-@export var impact_damage_ratio: float = 5  ## 冲击伤害比率
+@export var impact_damage_ratio: float = 10  ## 冲击伤害比率
 
 func _input(_event: InputEvent, _owner: Character) -> void:
 	pass

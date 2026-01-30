@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dd08876mmns4f"]
+
+[ext_resource type="Script" uid="uid://cqwo0qefs66gy" path="res://addons/hammer/menu_root.gd" id="1_4hy44"]
+[ext_resource type="Script" uid="uid://d2yjt26dk4xxg" path="res://example/menu_item.gd" id="2_ytr4m"]
+[ext_resource type="Script" uid="uid://bebrcfn71msm3" path="res://example/item.gd" id="3_l48gv"]
+[ext_resource type="Script" uid="uid://kweklkuqdcbv" path="res://example/menu_archive.gd" id="4_ecwwl"]
+
+[sub_resource type="Resource" id="Resource_efxa6"]
+script = ExtResource("3_l48gv")
+text = &"Start"
+metadata/_custom_type_script = "uid://bebrcfn71msm3"
+
+[sub_resource type="Resource" id="Resource_dg77c"]
+script = ExtResource("3_l48gv")
+text = &"Archive"
+callable = "get_menu_root().menu_visible_switch_by_title(\"Archive\")"
+metadata/_custom_type_script = "uid://bebrcfn71msm3"
+
+[sub_resource type="Resource" id="Resource_ycdy4"]
+script = ExtResource("3_l48gv")
+text = &"Exit"
+callable = "get_tree().quit()"
+metadata/_custom_type_script = "uid://bebrcfn71msm3"
+
+[node name="MenuRoot" type="Control" unique_id=1349210391 node_paths=PackedStringArray("default_menu_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4hy44")
+default_menu_list = [NodePath("Item")]
+
+[node name="Item" type="Control" parent="." unique_id=1476929743 node_paths=PackedStringArray("item_list_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ytr4m")
+item_list = Array[ExtResource("3_l48gv")]([SubResource("Resource_efxa6"), SubResource("Resource_dg77c"), SubResource("Resource_ycdy4")])
+item_list_node = NodePath("Item")
+
+[node name="Title" type="Label" parent="Item" unique_id=2113719460]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -160.0
+offset_right = 448.0
+offset_bottom = -32.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Hammer"
+vertical_alignment = 1
+
+[node name="Item" type="ItemList" parent="Item" unique_id=84918411]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 224.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+item_count = 3
+item_0/text = "Start"
+item_1/text = "Archive"
+item_2/text = "Exit"
+
+[node name="Archive" type="Control" parent="." unique_id=1359263083 node_paths=PackedStringArray("tree_node")]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.014
+offset_left = 448.0
+offset_top = 128.0
+offset_right = -128.0
+offset_bottom = -136.06403
+grow_vertical = 2
+script = ExtResource("4_ecwwl")
+tree_node = NodePath("Tree")
+metadata/_custom_type_script = "uid://kweklkuqdcbv"
+
+[node name="Tree" type="Tree" parent="Archive" unique_id=648978020]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+column_titles_visible = true
+hide_folding = true
+hide_root = true

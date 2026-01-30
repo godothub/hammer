@@ -57,7 +57,6 @@ func menu_show_by_title(_title: String, _argument: String = "") -> void:
 	var menu: Menu = get_node(_title)
 	menu_show(menu, _argument)
 
-
 ## 显示指定 _menu 菜单
 func menu_show(_menu: Menu, _argument: String = "") -> void:
 	_menu.command(_argument)
@@ -72,6 +71,16 @@ func menu_hide_by_title(_title: String) -> void:
 ## 隐藏指定 _menu 菜单
 func menu_hide(_menu: Menu) -> void:
 	_menu.hide()
+
+func menu_visible_switch_by_title(_title:String) -> void:
+	var menu: Menu = get_node(_title)
+	menu_visible_switch(menu)
+
+func menu_visible_switch(_menu:Menu) -> void:
+	if _menu.visible:
+		menu_hide(_menu)
+	else:
+		menu_show(_menu)
 
 ## 刷新
 func flash_menu_root() -> void:

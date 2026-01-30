@@ -2,8 +2,6 @@
 extends Menu
 class_name MenuOption
 
-@export var a:Array[Option]
-
 ## 树节点
 @export var tree_node:Tree:
 	set(_tree_node):
