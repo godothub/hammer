@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dc5hdt84wkldm"]
+
+[ext_resource type="Script" uid="uid://bsmyosakvcn3n" path="res://addons/hammer/core/character.gd" id="1_rxg4x"]
+[ext_resource type="Script" uid="uid://bol7b8gy3lfmo" path="res://addons/hammer/core/driver.gd" id="2_6dmbd"]
+[ext_resource type="Script" uid="uid://b0a5gakn3hs7" path="res://addons/hammer/extension/pick_tool.gd" id="2_kne1u"]
+[ext_resource type="Script" uid="uid://cnk5lb2l42pvb" path="res://addons/hammer/extension/driver_control.gd" id="3_0dxee"]
+[ext_resource type="Script" uid="uid://ducgmt56psq30" path="res://addons/hammer/extension/driver_auto_recovery.gd" id="4_cfiam"]
+[ext_resource type="Script" uid="uid://okdoof6ql2al" path="res://addons/hammer/extension/driver_gravity.gd" id="5_qbgtv"]
+[ext_resource type="Script" uid="uid://d0dupmq57wi10" path="res://addons/hammer/extension/driver_impact_damage.gd" id="6_sss7m"]
+[ext_resource type="Script" uid="uid://bla07ccd4ygii" path="res://addons/hammer/extension/driver_death_rollback.gd" id="7_r0i88"]
+[ext_resource type="Script" uid="uid://bbj4mfxdnpo4i" path="res://addons/hammer/core/posture.gd" id="8_0dxee"]
+
+[sub_resource type="Resource" id="Resource_p5ssn"]
+script = ExtResource("3_0dxee")
+metadata/_custom_type_script = "uid://cnk5lb2l42pvb"
+
+[sub_resource type="Resource" id="Resource_srxyq"]
+script = ExtResource("4_cfiam")
+metadata/_custom_type_script = "uid://ducgmt56psq30"
+
+[sub_resource type="Resource" id="Resource_y8vto"]
+script = ExtResource("5_qbgtv")
+metadata/_custom_type_script = "uid://okdoof6ql2al"
+
+[sub_resource type="Resource" id="Resource_p6i65"]
+script = ExtResource("6_sss7m")
+metadata/_custom_type_script = "uid://d0dupmq57wi10"
+
+[sub_resource type="Resource" id="Resource_kbov7"]
+script = ExtResource("7_r0i88")
+metadata/_custom_type_script = "uid://bla07ccd4ygii"
+
+[sub_resource type="Resource" id="Resource_cfiam"]
+script = ExtResource("8_0dxee")
+Speed = 3.0
+Accel = 6.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://bbj4mfxdnpo4i"
+
+[sub_resource type="Resource" id="Resource_qbgtv"]
+script = ExtResource("8_0dxee")
+Speed = 1.0
+Accel = 1.0
+Height = 2.0
+Radius = 0.5
+metadata/_custom_type_script = "uid://bbj4mfxdnpo4i"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
+
+[node name="Player" type="CharacterBody3D" unique_id=286526679 node_paths=PackedStringArray("head_node", "collide_node", "current_tool", "tool_ray")]
+script = ExtResource("1_rxg4x")
+head_node = NodePath("Camera")
+collide_node = NodePath("Shape")
+driver_list = Array[ExtResource("2_6dmbd")]([SubResource("Resource_p5ssn"), SubResource("Resource_srxyq"), SubResource("Resource_y8vto"), SubResource("Resource_p6i65"), SubResource("Resource_kbov7")])
+posture_table = Dictionary[StringName, ExtResource("8_0dxee")]({
+&"Midair": SubResource("Resource_qbgtv"),
+&"Stand": SubResource("Resource_cfiam")
+})
+current_tool = NodePath("PickTool")
+tool_ray = NodePath("Camera/Ray")
+metadata/_custom_type_script = "uid://bsmyosakvcn3n"
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=1698978153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_t6lng")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=620027590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+current = true
+
+[node name="Ray" type="RayCast3D" parent="Camera" unique_id=496919843]
+target_position = Vector3(0, 0, -10)
+
+[node name="Marker" type="Marker3D" parent="Camera" unique_id=570627198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="PickTool" type="Node3D" parent="." unique_id=322224816 node_paths=PackedStringArray("object_position")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_kne1u")
+object_position = NodePath("../Camera/Marker")
+object_accel = null
+release_speed_max = null
+Distance = null
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1003098324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_3qu6b")

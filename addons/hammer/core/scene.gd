@@ -5,19 +5,31 @@ class_name Scene
 
 ## 交界设备列表
 @export var edge_facility_table: Dictionary[StringName, Facility]:
-	set(_edge_facility_list):
+	set(_edge_facility_table):
 		if not Engine.is_editor_hint():
 			for _facility: Facility in edge_facility_table.values():
 				if _facility:
 					_facility.active_signal.disconnect(edge_facility_active)
 					_facility.inactive_signal.disconnect(edge_facility_inactive)
-			for _facility: Facility in _edge_facility_list.values():
+			for _facility: Facility in _edge_facility_table.values():
 				if _facility:
 					_facility.active_signal.connect(edge_facility_active)
 					_facility.inactive_signal.connect(edge_facility_inactive)
-		edge_facility_table = _edge_facility_list
+		edge_facility_table = _edge_facility_table
 		update_configuration_warnings()
 
+## 自动保存设备
+@export var archive_facility_list:Array[Facility]:
+	set(_archive_facility_list):
+		if not Engine.is_editor_hint():
+			for _facility: Facility in archive_facility_list:
+				if _facility:
+					_facility.active_signal.disconnect(archive_facility_active)
+			for _facility: Facility in _archive_facility_list:
+				if _facility:
+					_facility.active_signal.connect(archive_facility_active)
+		archive_facility_list = _archive_facility_list
+		update_configuration_warnings()
 
 ## 警告信息
 func _get_configuration_warnings() -> PackedStringArray:
@@ -46,6 +58,7 @@ func edge_facility_active(_facility: Facility) -> void:
 	var game_root:GameRoot = get_game_root()
 	var file: StringName = edge_facility_table.find_key(_facility)
 	game_root.scene_append(file)
+	game_root.scene_delay_remove_cancel(file)
 
 	var scene:Scene = game_root.scene_node(file)
 	var facility:Facility = scene.edge_facility_table[name]
@@ -72,8 +85,15 @@ func edge_facility_inactive(_facility: Facility) -> void:
 		_facility.enable = facility.enable
 	else:
 		# 玩家处于当前场景 移除对方场景
-		game_root.scene_remove(file)
+		game_root.scene_delay_remove(file)
+		#facility.enable = _facility.enable
 
+
+func archive_facility_active(_facility: Facility) -> void:
+	if _facility.depend_facility_status():
+		get_game_root().archive_save()
+		
+	
 
 func _init() -> void:
 	if Engine.is_editor_hint():

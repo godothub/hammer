@@ -36,6 +36,7 @@ class_name Character
 
 @export_group("Health")
 signal health_updated_signal(_delta:float)
+signal death_signal(_character:Character)
 ## 最大健康值
 @export var health_max: float = 100:
 	set(_health_max):
@@ -44,8 +45,9 @@ signal health_updated_signal(_delta:float)
 ## 健康值
 @export var health_value: float = 100:
 	set(_health_value):
-		if health_value < 0:
-			pass
+		health_updated_signal.emit(_health_value - health_value)
+		if _health_value < 0:
+			death_signal.emit(self)
 		else:
 			health_value = clampf(_health_value, 0, health_max)
 

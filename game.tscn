@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://fpws46ka8qq6"]
 
-[ext_resource type="Script" uid="uid://cb8i1o4wu6yb1" path="res://addons/hammer/game_root.gd" id="1_feb5d"]
+[ext_resource type="Script" uid="uid://cb8i1o4wu6yb1" path="res://addons/hammer/core/game_root.gd" id="1_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="2_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="3_7jktm"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://test/player.tscn" id="3_7jktm"]
 [ext_resource type="PackedScene" uid="uid://cmy0imidera5u" path="res://scene/Background.tscn" id="4_fc0e3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2ibq"]
@@ -17,9 +17,10 @@ background_mode = 2
 sky = SubResource("Sky_trn2v")
 tonemap_mode = 2
 
-[node name="GameRoot" type="Node3D" unique_id=2078282776]
+[node name="GameRoot" type="Node3D" unique_id=2083684218]
 process_mode = 4
-script = ExtResource("1_feb5d")
+script = ExtResource("1_fc0e3")
+metadata/_custom_type_script = "uid://cb8i1o4wu6yb1"
 
 [node name="Player" parent="." unique_id=10016931 instance=ExtResource("3_7jktm")]
 
@@ -30,9 +31,6 @@ shadow_enabled = true
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1933903885]
 environment = SubResource("Environment_j4qnp")
 
-[node name="Scene0" parent="." unique_id=1669663695 node_paths=PackedStringArray("edge_facility_table") instance=ExtResource("2_fc0e3")]
-edge_facility_table = {
-&"Scene1": NodePath("FacilityRoot/DoorPanel")
-}
+[node name="Scene0" parent="." unique_id=1669663695 instance=ExtResource("2_fc0e3")]
 
 [node name="Background" parent="." unique_id=1697851647 instance=ExtResource("4_fc0e3")]

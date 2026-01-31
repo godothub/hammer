@@ -19,6 +19,10 @@ class_name ManageRoot
 @export var game_root: GameRoot:
 	set(_game_root):
 		game_root = _game_root
+		if game_is_background():
+			game_status_stopping()
+		else:
+			game_status_running()
 		update_configuration_warnings()
 
 ## 背景场景名称
@@ -49,6 +53,11 @@ func game_status_stopping() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	game_root.set_process_mode(Node.PROCESS_MODE_DISABLED)
 
+func game_is_background() -> bool:
+	for _name:StringName in background_scene_list:
+		if game_root.scene_node(_name):
+			return true
+	return false
 
 ## 警告信息
 func _get_configuration_warnings() -> PackedStringArray:
@@ -63,14 +72,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _input(_event: InputEvent) -> void:
 	if game_root:
-		if _event.is_action_pressed("Esc"):
-			for _name:StringName in background_scene_list:
-				if not game_root.scene_node(_name):
-					game_status_switch()
-					break
+		if not game_is_background():
+			if _event.is_action_pressed("Esc"):
+				game_status_switch()
 	else:
 		game_status_stopping()
-
-func _ready() -> void:
-	game_status_stopping()
-	

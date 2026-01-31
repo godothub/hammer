@@ -1,16 +1,17 @@
 [gd_scene format=3 uid="uid://bnd0ec658wsvo"]
 
-[ext_resource type="Script" uid="uid://bch5nv34m7iws" path="res://addons/hammer/manage_root.gd" id="1_kek77"]
+[ext_resource type="Script" uid="uid://bch5nv34m7iws" path="res://addons/hammer/core/manage_root.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dd08876mmns4f" path="res://menu.tscn" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://b2kf3odiuiwka" path="res://gui.tscn" id="3_272bh"]
 [ext_resource type="PackedScene" uid="uid://fpws46ka8qq6" path="res://game.tscn" id="4_1bvp3"]
 
-[node name="ManageRoot" type="Node" unique_id=270175690 node_paths=PackedStringArray("menu_root", "gui_root", "game_root")]
-script = ExtResource("1_kek77")
+[node name="ManageRoot" type="Node" unique_id=1491934207 node_paths=PackedStringArray("menu_root", "gui_root", "game_root")]
+script = ExtResource("1_1bvp3")
 menu_root = NodePath("MenuRoot")
 gui_root = NodePath("GUIRoot")
 game_root = NodePath("GameRoot")
 background_scene_list = Array[String](["Background"])
+metadata/_custom_type_script = "uid://bch5nv34m7iws"
 
 [node name="MenuRoot" parent="." unique_id=1349210391 instance=ExtResource("2_7mycd")]
 

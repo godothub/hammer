@@ -3,7 +3,6 @@ extends Node3D
 class_name GameRoot
 ## 游戏根节点
 
-
 ## 管理根节点
 func get_manage_root() -> ManageRoot:
 	return get_parent()
@@ -17,10 +16,14 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warning
 
 
-# 无缝场景
-
 ## 场景文件目录
 @export_dir var scene_directory: String = "res://scene"
+
+## 延迟删除时间
+@export var scene_remove_delay:float = 3
+
+## 场景删除记录器
+var scene_remove_table:Dictionary[StringName, float]
 
 ## 场景附加信号
 signal scene_append_signal(_file: StringName)
@@ -47,6 +50,13 @@ func scene_append(_file: String) -> bool:
 ## 场景移除信号
 signal scene_remove_signal(_file: StringName)
 
+## 场景延迟移除
+func scene_delay_remove(_file: String) -> void:
+	scene_remove_table[_file] = 0
+
+func scene_delay_remove_cancel(_file: String) -> void:
+	if scene_remove_table.has(_file):
+		scene_remove_table.erase(_file)
 
 ## 场景移除
 func scene_remove(_file: String) -> bool:
@@ -57,7 +67,6 @@ func scene_remove(_file: String) -> bool:
 	scene.queue_free()
 	scene_remove_signal.emit(_file)
 	return true
-
 
 func scene_node(_file: String) -> Scene:
 	return get_node(_file)
@@ -88,13 +97,24 @@ func archive_load(_file: StringName) -> void:
 	queue_free()
 
 
-## 清空存档
+## 删除存档
 func archive_remove(_file:StringName) -> bool:
 	var dir: DirAccess = DirAccess.open(archive_directory)
 	dir.remove(_file + ".tscn")
 	return true
 
+func archive_list() -> PackedStringArray:
+	var files:Array = DirAccess.get_files_at(archive_directory)
+	files.reverse()
+	return files.map(func (_file:String):return _file.get_basename())
 
 func _init() -> void:
 	tree_entered.connect(update_configuration_warnings)
 	child_order_changed.connect(update_configuration_warnings)
+
+func _physics_process(_delta: float) -> void:
+	for _file:String in scene_remove_table:
+		scene_remove_table[_file] += _delta
+		if scene_remove_table[_file] >= scene_remove_delay:
+			scene_remove(_file)
+			scene_remove_table.erase(_file)

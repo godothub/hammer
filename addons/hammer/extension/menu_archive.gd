@@ -32,8 +32,8 @@ func flash() -> void:
 	## 文件文件
 	var files:PackedStringArray = get_menu_root().get_manage_root().game_root.archive_list()
 	
-	var play_texture:Texture2D = load("res://example/play.svg")
-	var remove_texture:Texture2D = load("res://example/remove.svg")
+	var play_texture:Texture2D = load("res://addons/hammer/icon/play.svg")
+	var remove_texture:Texture2D = load("res://addons/hammer/icon/remove.svg")
 	
 	for _file in files:
 		var item:TreeItem = tree_node.create_item(root)

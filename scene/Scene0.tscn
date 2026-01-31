@@ -1,8 +1,10 @@
-[gd_scene format=3 uid="uid://1rdayww5ebh3"]
+[gd_scene format=3 uid="uid://7huw620yk2wv"]
 
-[ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/scene.gd" id="1_r8mh2"]
-[ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://example/facility_area.gd" id="5_awyxq"]
-[ext_resource type="Script" uid="uid://sg74uc1vt2g4" path="res://example/facility_panel.gd" id="6_hp16u"]
+[ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/core/scene.gd" id="1_ecicg"]
+[ext_resource type="Script" uid="uid://bmd63051goee6" path="res://addons/hammer/extension/facility_button.gd" id="4_ecicg"]
+[ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://addons/hammer/extension/facility_area.gd" id="5_awyxq"]
+[ext_resource type="Script" uid="uid://oyfr74obby8b" path="res://addons/hammer/extension/facility_area_gravity.gd" id="5_p6ene"]
+[ext_resource type="Script" uid="uid://sg74uc1vt2g4" path="res://addons/hammer/extension/facility_panel.gd" id="6_hp16u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
 size = Vector2(20, 20)
@@ -25,15 +27,26 @@ size = Vector3(2, 0.2, 2)
 [sub_resource type="BoxMesh" id="BoxMesh_awyxq"]
 size = Vector3(2, 0.2, 2)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_p6ene"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ecicg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p6ene"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4y41"]
+size = Vector3(10, 2, 2)
+
 [sub_resource type="BoxMesh" id="BoxMesh_yx5lk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecicg"]
 
-[node name="Scene0" type="Node3D" unique_id=1294051616 node_paths=PackedStringArray("edge_facility_table")]
-script = ExtResource("1_r8mh2")
+[node name="Scene0" type="Node3D" unique_id=1749043582 node_paths=PackedStringArray("edge_facility_table", "archive_facility_list")]
+script = ExtResource("1_ecicg")
 edge_facility_table = {
 &"Scene1": NodePath("FacilityRoot/DoorPanel")
 }
+archive_facility_list = [NodePath("FacilityRoot/DoorArea")]
+metadata/_custom_type_script = "uid://py0vjxgenl4m"
 
 [node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
 
@@ -75,7 +88,7 @@ area = NodePath("Area")
 
 [node name="Area" type="Area3D" parent="FacilityRoot/FacilityArea" unique_id=1702347611]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/FacilityArea/Area" unique_id=45314870]
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/FacilityArea/Area" unique_id=45314870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_awyxq")
 
@@ -109,7 +122,7 @@ area = NodePath("Area")
 
 [node name="Area" type="Area3D" parent="FacilityRoot/DoorArea" unique_id=393979300]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/DoorArea/Area" unique_id=601273934]
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/DoorArea/Area" unique_id=601273934]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_awyxq")
 
@@ -135,6 +148,39 @@ mesh = SubResource("BoxMesh_awyxq")
 
 [node name="To" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1100783675]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 3, 0)
+
+[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=2021613415 node_paths=PackedStringArray("area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -5)
+script = ExtResource("4_ecicg")
+button_mode = 1
+area = NodePath("Area")
+metadata/_custom_type_script = "uid://bmd63051goee6"
+
+[node name="Area" type="Area3D" parent="FacilityRoot/FacilityButton" unique_id=1017325546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/FacilityButton/Area" unique_id=104023024]
+shape = SubResource("BoxShape3D_p6ene")
+
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityButton" unique_id=553962676]
+
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1444984847]
+shape = SubResource("CylinderShape3D_ecicg")
+
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1426763688]
+mesh = SubResource("CylinderMesh_p6ene")
+
+[node name="FacilityAreaGravity" type="Node3D" parent="FacilityRoot" unique_id=220882384 node_paths=PackedStringArray("area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
+script = ExtResource("5_p6ene")
+area = NodePath("Area")
+metadata/_custom_type_script = "uid://oyfr74obby8b"
+
+[node name="Area" type="Area3D" parent="FacilityRoot/FacilityAreaGravity" unique_id=1515185603]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/FacilityAreaGravity/Area" unique_id=1680857751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+shape = SubResource("BoxShape3D_g4y41")
 
 [node name="Cube" type="RigidBody3D" parent="." unique_id=671126773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
