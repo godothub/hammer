@@ -21,25 +21,13 @@ class_name ManageRoot
 		game_root = _game_root
 		update_configuration_warnings()
 
+## 背景场景名称
+@export var background_scene_list:Array[String]
 
-## 警告信息
-func _get_configuration_warnings() -> PackedStringArray:
-	var warning: PackedStringArray
-	if not menu_root:
-		warning.append("menu_root 不应为空")
-	if not gui_root:
-		warning.append("gui_root 不应为空")
-	if not game_root:
-		warning.append("game_root 不应为空")
-	return warning
-
-func _input(_event: InputEvent) -> void:
-	if game_root:
-		if _event.is_action_pressed("Esc"):
-			game_status_switch()
-	else:
-		gui_root.hide()
-		menu_root.show()
+## 移除背景场景
+func background_scene_remove() -> void:
+	for _name:StringName in background_scene_list:
+		game_root.scene_remove(_name)	
 
 func game_status_switch() -> void:
 	var game_process:ProcessMode = game_root.get_process_mode()
@@ -62,5 +50,27 @@ func game_status_stopping() -> void:
 	game_root.set_process_mode(Node.PROCESS_MODE_DISABLED)
 
 
+## 警告信息
+func _get_configuration_warnings() -> PackedStringArray:
+	var warning: PackedStringArray
+	if not menu_root:
+		warning.append("menu_root 不应为空")
+	if not gui_root:
+		warning.append("gui_root 不应为空")
+	if not game_root:
+		warning.append("game_root 不应为空")
+	return warning
+
+func _input(_event: InputEvent) -> void:
+	if game_root:
+		if _event.is_action_pressed("Esc"):
+			for _name:StringName in background_scene_list:
+				if not game_root.scene_node(_name):
+					game_status_switch()
+					break
+	else:
+		game_status_stopping()
+
 func _ready() -> void:
 	game_status_stopping()
+	

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cmy0imidera5u"]
+
+[ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/scene.gd" id="1_3pha4"]
+
+[node name="Background" type="Node3D" unique_id=1697851647]
+script = ExtResource("1_3pha4")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2kf3odiuiwka"]
 
 [ext_resource type="Script" uid="uid://lq77ujuwhyjq" path="res://addons/hammer/gui_root.gd" id="1_6lon5"]
-[ext_resource type="Script" uid="uid://dnd3gmk78dssv" path="res://example/gui_player.gd" id="2_q8o8l"]
+[ext_resource type="Script" uid="uid://cqjhqt7mwt7m8" path="res://example/gui_player.gd" id="2_q8o8l"]
 
 [node name="GUIRoot" type="Control" unique_id=398983448]
 visible = false
@@ -22,7 +22,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_q8o8l")
 health_node = NodePath("Health")
-player_name = null
 
 [node name="Health" type="ProgressBar" parent="Player" unique_id=624292886]
 layout_mode = 1

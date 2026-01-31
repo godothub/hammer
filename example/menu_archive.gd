@@ -35,8 +35,8 @@ func flash() -> void:
 	var dir:DirAccess = DirAccess.open(archive_directory)
 	var files:PackedStringArray = dir.get_files()
 	
-	var play_texture:Texture2D = load("res://example/Play.svg")
-	var remove_texture:Texture2D = load("res://example/Remove.svg")
+	var play_texture:Texture2D = load("res://example/play.svg")
+	var remove_texture:Texture2D = load("res://example/remove.svg")
 	
 	for _file in files:
 		var item:TreeItem = tree_node.create_item(root)

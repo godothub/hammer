@@ -1,4 +1,4 @@
-@tool
+
 extends Facility
 class_name FacilityArea
 ## 区域检测

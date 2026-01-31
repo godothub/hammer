@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://dc5hdt84wkldm"]
 
-[ext_resource type="Script" uid="uid://6md5nw8dttud" path="res://addons/hammer/character.gd" id="1_3qu6b"]
+[ext_resource type="Script" uid="uid://bsmyosakvcn3n" path="res://addons/hammer/character.gd" id="1_3qu6b"]
 [ext_resource type="Script" uid="uid://b0a5gakn3hs7" path="res://example/pick_tool.gd" id="2_kne1u"]
 [ext_resource type="Script" uid="uid://bol7b8gy3lfmo" path="res://addons/hammer/driver.gd" id="2_qyjt6"]
 [ext_resource type="Script" uid="uid://okdoof6ql2al" path="res://example/driver_gravity.gd" id="3_ougad"]
 [ext_resource type="Script" uid="uid://cnk5lb2l42pvb" path="res://example/driver_control.gd" id="4_qyjt6"]
-[ext_resource type="Script" uid="uid://buwhxu0ggk178" path="res://example/driver_impact_damage.gd" id="5_w7xnp"]
-[ext_resource type="Script" uid="uid://jvgu25qx6jkr" path="res://example/driver_auto_recovery.gd" id="6_6dmbd"]
+[ext_resource type="Script" uid="uid://d0dupmq57wi10" path="res://example/driver_impact_damage.gd" id="5_w7xnp"]
+[ext_resource type="Script" uid="uid://ducgmt56psq30" path="res://example/driver_auto_recovery.gd" id="6_6dmbd"]
 [ext_resource type="Script" uid="uid://bbj4mfxdnpo4i" path="res://addons/hammer/posture.gd" id="6_w7xnp"]
 
 [sub_resource type="Resource" id="Resource_ougad"]

@@ -1,7 +1,8 @@
-@tool
 extends Node3D
 class_name Facility
 ## 活动设施
+
+@export var enable_remaining:int = -1 ## 剩余启用次数
 
 ## 启用更新信号
 signal enable_update_signal
@@ -10,17 +11,20 @@ signal enable_signal(_facility: Facility)
 ## 停用信号
 signal disable_signal(_facility: Facility)
 ## 节点启动状态
-@export var enable: bool = true:
+var enable: bool = true:
 	set(_enable):
 		if depend_facility_list.size() == 0:
 			_enable = true
 		if enable != _enable:
-			enable = _enable
-			enable_update_signal.emit()
-			if enable:
-				enable_signal.emit(self)
-			else:
-				disable_signal.emit(self)
+			if enable_remaining != 0:
+				enable = _enable
+				enable_update_signal.emit()
+				if enable:
+					enable_signal.emit(self)
+				else:
+					disable_signal.emit(self)
+				if enable_remaining > 0 and _enable:
+					enable_remaining -= 1
 
 ## 依赖设备列表
 @export var depend_facility_list: Array[Facility]:
@@ -35,7 +39,6 @@ signal disable_signal(_facility: Facility)
 		
 		depend_facility_list = _depend_facility_list
 		depend_falicity_freshed()
-		update_configuration_warnings()
 
 ## 激活更新信号
 signal active_updated_signal
@@ -54,18 +57,6 @@ var active: bool = false:
 			else:
 				inactive_signal.emit(self)
 
-
-## 警告信息
-func _get_configuration_warnings() -> PackedStringArray:
-	var warning: PackedStringArray
-
-	for _facility: Facility in depend_facility_list:
-		if not _facility:
-			warning.append("DependFacilityList 不能存在空物体")
-
-	return warning
-
-
 ## 更新状态
 func depend_falicity_freshed() -> void:
 	enable = depend_facility_status()
@@ -73,9 +64,9 @@ func depend_falicity_freshed() -> void:
 
 ## 检查依赖设备状态
 func depend_facility_status() -> bool:
-	var enable: bool = true
+	var record: bool = true
 	for _facility: Facility in depend_facility_list:
 		if not _facility.active:
-			enable = false
+			record = false
 			break
-	return enable
+	return record

@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://dd08876mmns4f"]
 
-[ext_resource type="Script" uid="uid://cqwo0qefs66gy" path="res://addons/hammer/menu_root.gd" id="1_4hy44"]
-[ext_resource type="Script" uid="uid://d2yjt26dk4xxg" path="res://example/menu_item.gd" id="2_ytr4m"]
+[ext_resource type="Script" uid="uid://cok1g3gqvojj8" path="res://addons/hammer/menu_root.gd" id="1_4hy44"]
+[ext_resource type="Script" uid="uid://5fb21vjjankq" path="res://example/menu_item.gd" id="2_ytr4m"]
 [ext_resource type="Script" uid="uid://bebrcfn71msm3" path="res://example/item.gd" id="3_l48gv"]
-[ext_resource type="Script" uid="uid://kweklkuqdcbv" path="res://example/menu_archive.gd" id="4_ecwwl"]
+[ext_resource type="Script" uid="uid://bg8r8twr6fgev" path="res://example/menu_archive.gd" id="4_ecwwl"]
 
 [sub_resource type="Resource" id="Resource_efxa6"]
 script = ExtResource("3_l48gv")
 text = &"Start"
+callable = "get_menu_root().get_manage_root().background_scene_remove()
+get_menu_root().get_manage_root().game_status_running()"
 metadata/_custom_type_script = "uid://bebrcfn71msm3"
 
 [sub_resource type="Resource" id="Resource_dg77c"]
@@ -84,7 +86,6 @@ offset_bottom = -136.06403
 grow_vertical = 2
 script = ExtResource("4_ecwwl")
 tree_node = NodePath("Tree")
-metadata/_custom_type_script = "uid://kweklkuqdcbv"
 
 [node name="Tree" type="Tree" parent="Archive" unique_id=648978020]
 layout_mode = 1

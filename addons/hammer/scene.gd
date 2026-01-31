@@ -52,10 +52,8 @@ func edge_facility_active(_facility: Facility) -> void:
 
 	facility.enable = _facility.enable
 
+	scene.global_rotation_degrees -= facility.global_rotation_degrees - _facility.global_rotation_degrees
 	scene.global_position -= facility.global_position - _facility.global_position
-	scene.global_rotation_degrees -= (
-		facility.global_rotation_degrees - _facility.global_rotation_degrees
-	)
 
 
 ## 边界失效更新

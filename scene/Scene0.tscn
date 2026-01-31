@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://1rdayww5ebh3"]
+[gd_scene format=3 uid="uid://1rdayww5ebh3"]
 
 [ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/scene.gd" id="1_r8mh2"]
 [ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://example/facility_area.gd" id="5_awyxq"]
@@ -29,111 +29,118 @@ size = Vector3(2, 0.2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ecicg"]
 
-[node name="Scene0" type="Node3D" node_paths=PackedStringArray("edge_facility_table")]
+[node name="Scene0" type="Node3D" unique_id=1294051616 node_paths=PackedStringArray("edge_facility_table")]
 script = ExtResource("1_r8mh2")
 edge_facility_table = {
 &"Scene1": NodePath("FacilityRoot/DoorPanel")
 }
 
-[node name="StaticRoot" type="Node3D" parent="."]
+[node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
 
-[node name="Floor" type="StaticBody3D" parent="StaticRoot"]
+[node name="Floor" type="StaticBody3D" parent="StaticRoot" unique_id=1374082480]
 metadata/_edit_group_ = true
 
-[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Floor"]
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Floor" unique_id=1272362845]
 mesh = SubResource("QuadMesh_lgr22")
 
-[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Floor"]
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Floor" unique_id=1188302965]
 shape = SubResource("WorldBoundaryShape3D_lgr22")
 
-[node name="Box1" type="StaticBody3D" parent="StaticRoot"]
+[node name="Box1" type="StaticBody3D" parent="StaticRoot" unique_id=1656531781]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
 metadata/_edit_group_ = true
 
-[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box1"]
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box1" unique_id=1681032731]
 mesh = SubResource("BoxMesh_lgr22")
 
-[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box1"]
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box1" unique_id=1884669007]
 shape = SubResource("BoxShape3D_trn2v")
 
-[node name="Box2" type="StaticBody3D" parent="StaticRoot"]
+[node name="Box2" type="StaticBody3D" parent="StaticRoot" unique_id=9585495]
 transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 5, 0, 0)
 metadata/_edit_group_ = true
 
-[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box2"]
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box2" unique_id=416940311]
 mesh = SubResource("BoxMesh_lgr22")
 
-[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box2"]
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box2" unique_id=1073253838]
 shape = SubResource("BoxShape3D_trn2v")
 
-[node name="FacilityRoot" type="Node3D" parent="."]
+[node name="FacilityRoot" type="Node3D" parent="." unique_id=654795169]
 
-[node name="FacilityArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("area")]
+[node name="FacilityArea" type="Node3D" parent="FacilityRoot" unique_id=709449395 node_paths=PackedStringArray("area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 3)
 script = ExtResource("5_awyxq")
 area = NodePath("Area")
 
-[node name="Area" type="Area3D" parent="FacilityRoot/FacilityArea"]
+[node name="Area" type="Area3D" parent="FacilityRoot/FacilityArea" unique_id=1702347611]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/FacilityArea/Area"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/FacilityArea/Area" unique_id=45314870]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_awyxq")
 
-[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("panel_node", "point_node", "depend_facility_list")]
+[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" unique_id=1189200522 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 script = ExtResource("6_hp16u")
 panel_node = NodePath("Static")
-point_node = NodePath("Marker")
-enable = false
+from_node = NodePath("From")
+to_node = NodePath("To")
 depend_facility_list = [NodePath("../FacilityArea")]
 
-[node name="Marker" type="Marker3D" parent="FacilityRoot/FacilityPanel"]
+[node name="To" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=720064612]
 transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 1, 1)
 
-[node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityPanel"]
-transform = Transform3D(1, 0, 0, 0, 0.99999857, 0, 0, 0, 0.99999857, 0, 0, 0)
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityPanel" unique_id=26319207]
+transform = Transform3D(1, 0, 0, 0, 0.70710623, 0.70710623, 0, -0.70710623, 0.70710623, 0, 1, 1)
 
-[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/FacilityPanel/Static"]
+[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/FacilityPanel/Static" unique_id=1254031081]
 shape = SubResource("BoxShape3D_cmxue")
 
-[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityPanel/Static"]
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityPanel/Static" unique_id=729192000]
 mesh = SubResource("BoxMesh_awyxq")
 
-[node name="DoorArea" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("area")]
+[node name="From" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=1429249365]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="DoorArea" type="Node3D" parent="FacilityRoot" unique_id=863496833 node_paths=PackedStringArray("area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -9)
 script = ExtResource("5_awyxq")
 area = NodePath("Area")
 
-[node name="Area" type="Area3D" parent="FacilityRoot/DoorArea"]
+[node name="Area" type="Area3D" parent="FacilityRoot/DoorArea" unique_id=393979300]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/DoorArea/Area"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FacilityRoot/DoorArea/Area" unique_id=601273934]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
 shape = SubResource("BoxShape3D_awyxq")
 
-[node name="DoorPanel" type="Node3D" parent="FacilityRoot" node_paths=PackedStringArray("panel_node", "point_node", "depend_facility_list")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1, -10)
+[node name="DoorPanel" type="Node3D" parent="FacilityRoot" unique_id=1130011510 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -10)
 script = ExtResource("6_hp16u")
 panel_node = NodePath("Static")
-point_node = NodePath("Marker")
-enable = false
+from_node = NodePath("From")
+to_node = NodePath("To")
 depend_facility_list = [NodePath("../DoorArea")]
 
-[node name="Marker" type="Marker3D" parent="FacilityRoot/DoorPanel"]
-transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0, -3)
+[node name="From" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1000755430]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 
-[node name="Static" type="StaticBody3D" parent="FacilityRoot/DoorPanel"]
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/DoorPanel" unique_id=1330628395]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 3, 0)
 
-[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/DoorPanel/Static"]
+[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/DoorPanel/Static" unique_id=649769431]
 shape = SubResource("BoxShape3D_cmxue")
 
-[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/DoorPanel/Static"]
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/DoorPanel/Static" unique_id=726418014]
 mesh = SubResource("BoxMesh_awyxq")
 
-[node name="Cube" type="RigidBody3D" parent="."]
+[node name="To" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1100783675]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 3, 0)
+
+[node name="Cube" type="RigidBody3D" parent="." unique_id=671126773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 
-[node name="Mesh" type="MeshInstance3D" parent="Cube"]
+[node name="Mesh" type="MeshInstance3D" parent="Cube" unique_id=97935445]
 mesh = SubResource("BoxMesh_yx5lk")
 
-[node name="Shape" type="CollisionShape3D" parent="Cube"]
+[node name="Shape" type="CollisionShape3D" parent="Cube" unique_id=2081384847]
 shape = SubResource("BoxShape3D_ecicg")

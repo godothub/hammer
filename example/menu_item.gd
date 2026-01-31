@@ -25,8 +25,10 @@ func selected(_index: int) -> void:
 	var callable:Callable = Callable(self, item.callable)
 	
 	var expression:Expression = Expression.new()
-	expression.parse(item.callable)
-	expression.execute([], self)
+	
+	for _text:StringName in item.callable.split("\n"):
+		expression.parse(_text)
+		expression.execute([], self)
 	
 	flash()
 
