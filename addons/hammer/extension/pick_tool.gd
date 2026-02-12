@@ -3,7 +3,7 @@ class_name PickTool
 ## 抓取交互工具
 
 ## 抓取或交互实体
-var pick_object: RigidBody3D
+@export var pick_object: RigidBody3D
 
 ## 目标抓取位置
 @export var object_position: Marker3D

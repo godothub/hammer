@@ -91,8 +91,9 @@ func edge_facility_inactive(_facility: Facility) -> void:
 
 func archive_facility_active(_facility: Facility) -> void:
 	if _facility.depend_facility_status():
+		archive_facility_list.erase(_facility)
+		_facility.active_signal.disconnect(archive_facility_active)
 		get_game_root().archive_save()
-		
 	
 
 func _init() -> void:

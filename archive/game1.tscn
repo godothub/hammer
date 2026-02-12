@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8mhvlp4o5r28"]
 
-[ext_resource type="Script" uid="uid://cb8i1o4wu6yb1" path="res://addons/hammer/core/game_root.gd" id="1_fnd25"]
+[ext_resource type="Script" uid="uid://cmwhmlw4lnxe2" path="res://addons/hammer/core/game_root.gd" id="1_fnd25"]
 [ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://test/player.tscn" id="2_x4ggo"]
-[ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="3_siop2"]
+[ext_resource type="PackedScene" uid="uid://7huw620yk2wv" path="res://scene/Scene0.tscn" id="3_siop2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2ibq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -19,7 +19,6 @@ tonemap_mode = 2
 [node name="GameRoot" type="Node3D" unique_id=2083684218]
 process_mode = 4
 script = ExtResource("1_fnd25")
-metadata/_custom_type_script = "uid://cb8i1o4wu6yb1"
 
 [node name="Player" parent="." unique_id=10016931 instance=ExtResource("2_x4ggo")]
 

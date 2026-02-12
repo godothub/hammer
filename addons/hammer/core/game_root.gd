@@ -31,14 +31,13 @@ signal scene_append_signal(_file: StringName)
 
 ## 附加场景
 func scene_append(_file: String) -> bool:
-	if get_node(_file):
+	if get_node_or_null(_file):
 		return false
 
 	var path: String = scene_directory.path_join(_file + ".tscn")
 	var scene: Scene = load(path).instantiate()
 
 	add_child(scene)
-	scene.owner = self
 
 	scene.set_name(_file)
 	scene.set_owner(self)
@@ -69,7 +68,7 @@ func scene_remove(_file: String) -> bool:
 	return true
 
 func scene_node(_file: String) -> Scene:
-	return get_node(_file)
+	return get_node_or_null(_file)
 
 ## 存档位置
 @export_dir var archive_directory: String = "res://archive"
@@ -78,12 +77,25 @@ func scene_node(_file: String) -> Scene:
 
 ## 场景保存
 func archive_save() -> bool:
-	var packed_scene = PackedScene.new()
+	
+	_set_owner_recursive(self, self)
+	
+	var packed_scene:PackedScene = PackedScene.new()
 	packed_scene.pack(self)
 	var datetime_dict: Dictionary = Time.get_datetime_dict_from_system()
 	var file = archive_file.format(datetime_dict) + ".tscn"
 	ResourceSaver.save(packed_scene, archive_directory.path_join(file))
-	return true	
+	
+	#root.queue_free()
+	
+	return true
+
+func _set_owner_recursive(node: Node, owner_node: Node) -> void:
+	for child in node.get_children():
+		_set_owner_recursive(child, owner_node)
+	node.owner = owner_node
+	node.scene_file_path = ""
+
 
 
 ## 加载存档

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://fpws46ka8qq6"]
 
-[ext_resource type="Script" uid="uid://cb8i1o4wu6yb1" path="res://addons/hammer/core/game_root.gd" id="1_fc0e3"]
-[ext_resource type="PackedScene" uid="uid://1rdayww5ebh3" path="res://scene/Scene0.tscn" id="2_fc0e3"]
+[ext_resource type="Script" uid="uid://cmwhmlw4lnxe2" path="res://addons/hammer/core/game_root.gd" id="1_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://7huw620yk2wv" path="res://scene/Scene0.tscn" id="2_fc0e3"]
 [ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://test/player.tscn" id="3_7jktm"]
-[ext_resource type="PackedScene" uid="uid://cmy0imidera5u" path="res://scene/Background.tscn" id="4_fc0e3"]
+[ext_resource type="Script" uid="uid://dhk6i6yufqd8a" path="res://addons/hammer/core/scene.gd" id="4_fc0e3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2ibq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,9 +20,9 @@ tonemap_mode = 2
 [node name="GameRoot" type="Node3D" unique_id=2083684218]
 process_mode = 4
 script = ExtResource("1_fc0e3")
-metadata/_custom_type_script = "uid://cb8i1o4wu6yb1"
 
 [node name="Player" parent="." unique_id=10016931 instance=ExtResource("3_7jktm")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -4)
 
 [node name="Directional" type="DirectionalLight3D" parent="." unique_id=1358350589]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -31,6 +31,11 @@ shadow_enabled = true
 [node name="Environment" type="WorldEnvironment" parent="." unique_id=1933903885]
 environment = SubResource("Environment_j4qnp")
 
-[node name="Scene0" parent="." unique_id=1669663695 instance=ExtResource("2_fc0e3")]
+[node name="Scene0" parent="." unique_id=1669663695 node_paths=PackedStringArray("edge_facility_table") instance=ExtResource("2_fc0e3")]
+edge_facility_table = {
+&"Scene1": NodePath("FacilityRoot/DoorPanel")
+}
 
-[node name="Background" parent="." unique_id=1697851647 instance=ExtResource("4_fc0e3")]
+[node name="BackGround" type="Node3D" parent="." unique_id=1624976494]
+script = ExtResource("4_fc0e3")
+metadata/_custom_type_script = "uid://dhk6i6yufqd8a"

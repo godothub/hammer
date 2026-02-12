@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://7huw620yk2wv"]
 
-[ext_resource type="Script" uid="uid://py0vjxgenl4m" path="res://addons/hammer/core/scene.gd" id="1_ecicg"]
-[ext_resource type="Script" uid="uid://bmd63051goee6" path="res://addons/hammer/extension/facility_button.gd" id="4_ecicg"]
-[ext_resource type="Script" uid="uid://di25fuadhruvx" path="res://addons/hammer/extension/facility_area.gd" id="5_awyxq"]
-[ext_resource type="Script" uid="uid://oyfr74obby8b" path="res://addons/hammer/extension/facility_area_gravity.gd" id="5_p6ene"]
-[ext_resource type="Script" uid="uid://sg74uc1vt2g4" path="res://addons/hammer/extension/facility_panel.gd" id="6_hp16u"]
+[ext_resource type="Script" uid="uid://dhk6i6yufqd8a" path="res://addons/hammer/core/scene.gd" id="1_ecicg"]
+[ext_resource type="Script" uid="uid://qhay2nejrqpu" path="res://addons/hammer/extension/facility_button.gd" id="4_ecicg"]
+[ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://addons/hammer/extension/facility_area.gd" id="5_awyxq"]
+[ext_resource type="Script" uid="uid://cx7j731jv8df8" path="res://addons/hammer/extension/facility_area_gravity.gd" id="5_p6ene"]
+[ext_resource type="Script" uid="uid://sg78xfnx3wa8" path="res://addons/hammer/extension/facility_panel.gd" id="6_hp16u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
 size = Vector2(20, 20)
@@ -45,8 +45,7 @@ script = ExtResource("1_ecicg")
 edge_facility_table = {
 &"Scene1": NodePath("FacilityRoot/DoorPanel")
 }
-archive_facility_list = [NodePath("FacilityRoot/DoorArea")]
-metadata/_custom_type_script = "uid://py0vjxgenl4m"
+archive_facility_list = [NodePath("FacilityRoot/DoorPanel")]
 
 [node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
 
@@ -149,12 +148,12 @@ mesh = SubResource("BoxMesh_awyxq")
 [node name="To" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1100783675]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 3, 0)
 
-[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=2021613415 node_paths=PackedStringArray("area")]
+[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=2021613415 node_paths=PackedStringArray("area", "depend_facility_list")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -5)
 script = ExtResource("4_ecicg")
 button_mode = 1
 area = NodePath("Area")
-metadata/_custom_type_script = "uid://bmd63051goee6"
+depend_facility_list = [NodePath(".")]
 
 [node name="Area" type="Area3D" parent="FacilityRoot/FacilityButton" unique_id=1017325546]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -174,7 +173,6 @@ mesh = SubResource("CylinderMesh_p6ene")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4)
 script = ExtResource("5_p6ene")
 area = NodePath("Area")
-metadata/_custom_type_script = "uid://oyfr74obby8b"
 
 [node name="Area" type="Area3D" parent="FacilityRoot/FacilityAreaGravity" unique_id=1515185603]
 
