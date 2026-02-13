@@ -58,7 +58,6 @@ func edge_facility_active(_facility: Facility) -> void:
 	var game_root:GameRoot = get_game_root()
 	var file: StringName = edge_facility_table.find_key(_facility)
 	game_root.scene_append(file)
-	game_root.scene_delay_remove_cancel(file)
 
 	var scene:Scene = game_root.scene_node(file)
 	var facility:Facility = scene.edge_facility_table[name]
@@ -85,19 +84,14 @@ func edge_facility_inactive(_facility: Facility) -> void:
 		_facility.enable = facility.enable
 	else:
 		# 玩家处于当前场景 移除对方场景
-		game_root.scene_delay_remove(file)
-		#facility.enable = _facility.enable
-
+		game_root.scene_remove(file)
 
 func archive_facility_active(_facility: Facility) -> void:
 	if _facility.depend_facility_status():
 		archive_facility_list.erase(_facility)
 		_facility.active_signal.disconnect(archive_facility_active)
 		get_game_root().archive_save()
-	
 
 func _init() -> void:
 	if Engine.is_editor_hint():
 		tree_entered.connect(update_configuration_warnings)
-	else:
-		tree_entered.connect(func(): owner = get_parent())

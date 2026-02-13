@@ -1,28 +1,26 @@
 [gd_scene format=3 uid="uid://dd08876mmns4f"]
 
-[ext_resource type="Script" uid="uid://cok1g3gqvojj8" path="res://addons/hammer/core/menu_root.gd" id="1_4hy44"]
-[ext_resource type="Script" uid="uid://5fb21vjjankq" path="res://addons/hammer/extension/menu_item.gd" id="2_ytr4m"]
-[ext_resource type="Script" uid="uid://bebrcfn71msm3" path="res://addons/hammer/extension/item.gd" id="3_l48gv"]
-[ext_resource type="Script" uid="uid://bg8r8twr6fgev" path="res://addons/hammer/extension/menu_archive.gd" id="4_ecwwl"]
+[ext_resource type="Script" uid="uid://cycrhc2m3xlh0" path="res://addons/hammer/core/menu_root.gd" id="1_4hy44"]
+[ext_resource type="Script" uid="uid://b6gj16ogqnuy1" path="res://addons/hammer/extension/menu_item.gd" id="2_ytr4m"]
+[ext_resource type="Script" uid="uid://bdfq7rj4y8qlr" path="res://addons/hammer/extension/item.gd" id="3_l48gv"]
+[ext_resource type="Script" uid="uid://cx3f4m5ifbs8v" path="res://addons/hammer/extension/menu_archive.gd" id="4_ecwwl"]
 
 [sub_resource type="Resource" id="Resource_efxa6"]
 script = ExtResource("3_l48gv")
 text = &"Start"
-callable = "get_menu_root().get_manage_root().background_scene_remove()
-get_menu_root().get_manage_root().game_status_running()"
-metadata/_custom_type_script = "uid://bebrcfn71msm3"
+callable = "get_menu_root().get_manage_root().game_root.scene_remove(\"BackGround\")
+get_menu_root().get_manage_root().game_status_running()
+# get_menu_root().get_manage_root().game_root.archive_save()s"
 
 [sub_resource type="Resource" id="Resource_dg77c"]
 script = ExtResource("3_l48gv")
 text = &"Archive"
 callable = "get_menu_root().menu_visible_switch_by_title(\"Archive\")"
-metadata/_custom_type_script = "uid://bebrcfn71msm3"
 
 [sub_resource type="Resource" id="Resource_ycdy4"]
 script = ExtResource("3_l48gv")
 text = &"Exit"
 callable = "get_tree().quit()"
-metadata/_custom_type_script = "uid://bebrcfn71msm3"
 
 [node name="MenuRoot" type="Control" unique_id=1349210391 node_paths=PackedStringArray("default_menu_list")]
 layout_mode = 3
