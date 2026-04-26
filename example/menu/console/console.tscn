@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cuji4vrmbiubp"]
+
+[ext_resource type="Script" uid="uid://d3cbhplqfx57u" path="res://example/menu/console/console.gd" id="1_i4mgc"]
+
+[node name="Console" type="Window" unique_id=1370913511 node_paths=PackedStringArray("lable")]
+oversampling_override = 1.0
+title = "Console"
+position = Vector2i(64, 64)
+size = Vector2i(512, 256)
+script = ExtResource("1_i4mgc")
+lable = NodePath("Label")
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=2119287136]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

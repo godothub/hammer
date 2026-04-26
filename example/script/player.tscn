@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dc5hdt84wkldm"]
+
+[ext_resource type="Script" uid="uid://k7evmg086scu" path="res://addons/hammer/character.gd" id="1_rxg4x"]
+[ext_resource type="Script" uid="uid://jejqwg00wtje" path="res://addons/hammer/driver.gd" id="2_6dmbd"]
+[ext_resource type="Script" uid="uid://da2npij3kjs3i" path="res://example/script/driver/driver_control.gd" id="3_0dxee"]
+[ext_resource type="Script" uid="uid://4bp5t3ydd0r4" path="res://example/script/driver/driver_basic.gd" id="4_bmnku"]
+[ext_resource type="Script" uid="uid://pv2hpamfdink" path="res://example/script/driver/driver_tool.gd" id="5_hhskb"]
+[ext_resource type="Script" uid="uid://idbgb32cd6mu" path="res://example/script/driver/driver_interact.gd" id="6_hhskb"]
+
+[sub_resource type="Resource" id="Resource_hhskb"]
+script = ExtResource("4_bmnku")
+head_path = NodePath("Camera")
+metadata/_custom_type_script = "uid://4bp5t3ydd0r4"
+
+[sub_resource type="Resource" id="Resource_bmnku"]
+script = ExtResource("3_0dxee")
+metadata/_custom_type_script = "uid://da2npij3kjs3i"
+
+[sub_resource type="Resource" id="Resource_6v7lc"]
+script = ExtResource("5_hhskb")
+metadata/_custom_type_script = "uid://pv2hpamfdink"
+
+[sub_resource type="Resource" id="Resource_vkktu"]
+script = ExtResource("6_hhskb")
+ray_path = NodePath("Camera/Ray")
+metadata/_custom_type_script = "uid://idbgb32cd6mu"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hhskb"]
+radius = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_6v7lc"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vkktu"]
+
+[node name="Player" type="CharacterBody3D" unique_id=286526679]
+script = ExtResource("1_rxg4x")
+driver_list = Array[ExtResource("2_6dmbd")]([SubResource("Resource_hhskb"), SubResource("Resource_bmnku"), SubResource("Resource_6v7lc"), SubResource("Resource_vkktu")])
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=1698978153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_t6lng")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=620027590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+current = true
+
+[node name="Ray" type="RayCast3D" parent="Camera" unique_id=496919843]
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1003098324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_3qu6b")
+
+[node name="ToolGravity" type="Node3D" parent="." unique_id=281685168]
+visible = false
+metadata/_custom_type_script = "uid://capisgykn02eu"
+
+[node name="Area" type="Area3D" parent="ToolGravity" unique_id=353696990]
+
+[node name="Collision" type="CollisionShape3D" parent="ToolGravity/Area" unique_id=1554656620]
+shape = SubResource("SphereShape3D_hhskb")
+
+[node name="Mesh" type="MeshInstance3D" parent="ToolGravity" unique_id=1676184967]
+mesh = SubResource("SphereMesh_6v7lc")
+surface_material_override/0 = SubResource("ShaderMaterial_vkktu")

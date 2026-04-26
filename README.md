@@ -8,37 +8,26 @@ Enable developers to focus on 3D game development, making Godot as simple as Ham
 
 > The frequency of English updates may be slightly slower than that of Chinese.
 
-## DevelopmentRoadmap
-### CoreClass
+## Features
 
-* [ ] ManageRoot
+### Framework
 
-#### Menu
-* [x] MenuRoot
-* [x] Menu
+#### Main Menu
 
-#### Game
-* [ ] GameRoot
-* [ ] Scene
+The Main Menu is the only menu in the game and serves as the core method for players to control the game. You can find "Set as Main Menu" by right-clicking a packed scene file (*.tscn) in the file menu. This will globally autoload and call it under the name "Menu".
 
-* [x] Falacity
+#### Archive
 
-* [x] Character
-* [x] Tool
+Archive is the primary method for storing game data. By accessing the Archive, you can register a property list for specified nodes and apply the archive data to the corresponding registered nodes.
 
-#### GUI
-* [ ] GUIRoot
-* [ ] GUI
+### Game
 
-### ExampleClass
+#### Facility
 
-* [x] Player
+Facility is the basic type for all detection and actions within the game. It determines its own activation (enable) by checking the active state of dependent facilities (depend_facility_list). When activated, it can also determine its own active state.
 
-* [ ] MenuOption
-* [ ] MenuTree
+## Technical Route
 
-* [ ] MenuItem
-* [ ] MenuOption
+Hammer is an extension plugin for Godot, dedicated to using Godot's existing features to implement a game development framework.
 
-* [ ] GUIDescribe
-* [ ] GUIPlayer
+Therefore, most behaviors of Hammer will be attached to Godot's functionality. New concepts will only be introduced in the event of a severe lack of required features in the engine.

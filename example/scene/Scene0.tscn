@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://bch5cu8gha46s"]
+
+[ext_resource type="Script" uid="uid://8s22mmalmah7" path="res://addons/hammer/scene.gd" id="1_ecicg"]
+[ext_resource type="Script" uid="uid://b6raltksh7sww" path="res://example/script/facility/facility_switch.gd" id="4_ecicg"]
+[ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/script/facility/facility_area.gd" id="5_awyxq"]
+[ext_resource type="Script" uid="uid://b4h2gd5bap2xd" path="res://example/script/facility/facility_proxy.gd" id="5_p6ene"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/script/player.tscn" id="6_g4y41"]
+[ext_resource type="Script" uid="uid://sg78xfnx3wa8" path="res://example/script/facility/facility_panel.gd" id="6_hp16u"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_lgr22"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgr22"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trn2v"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmxue"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_awyxq"]
+size = Vector3(2, 0.2, 2)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ecicg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p6ene"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4y41"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yx5lk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ecicg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p6ene"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_trn2v"]
+sky_material = SubResource("ProceduralSkyMaterial_p6ene")
+
+[sub_resource type="Environment" id="Environment_g4y41"]
+background_mode = 2
+sky = SubResource("Sky_trn2v")
+tonemap_mode = 2
+
+[node name="Scene0" type="Node" unique_id=85275569]
+script = ExtResource("1_ecicg")
+
+[node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
+
+[node name="Floor" type="StaticBody3D" parent="StaticRoot" unique_id=1374082480]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Floor" unique_id=1272362845]
+mesh = SubResource("QuadMesh_lgr22")
+
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Floor" unique_id=1188302965]
+shape = SubResource("WorldBoundaryShape3D_lgr22")
+
+[node name="Box1" type="StaticBody3D" parent="StaticRoot" unique_id=1656531781]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box1" unique_id=1681032731]
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box1" unique_id=1884669007]
+shape = SubResource("BoxShape3D_trn2v")
+
+[node name="Box2" type="StaticBody3D" parent="StaticRoot" unique_id=9585495]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, 5, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="StaticRoot/Box2" unique_id=416940311]
+mesh = SubResource("BoxMesh_lgr22")
+
+[node name="Shape" type="CollisionShape3D" parent="StaticRoot/Box2" unique_id=1073253838]
+shape = SubResource("BoxShape3D_trn2v")
+
+[node name="FacilityRoot" type="Node3D" parent="." unique_id=654795169]
+
+[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" unique_id=1189200522 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+script = ExtResource("6_hp16u")
+panel_node = NodePath("Static")
+from_node = NodePath("From")
+to_node = NodePath("To")
+depend_facility_list = [null]
+metadata/_edit_group_ = true
+
+[node name="To" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=720064612]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 1, 1)
+
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityPanel" unique_id=26319207]
+transform = Transform3D(1, 0, 0, 0, 0.70710623, 0.70710623, 0, -0.70710623, 0.70710623, 0, 1, 1)
+
+[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/FacilityPanel/Static" unique_id=1254031081]
+shape = SubResource("BoxShape3D_cmxue")
+
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityPanel/Static" unique_id=729192000]
+mesh = SubResource("BoxMesh_awyxq")
+
+[node name="From" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=1429249365]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+
+[node name="DoorPanel" type="Node3D" parent="FacilityRoot" unique_id=1130011510 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, -10)
+script = ExtResource("6_hp16u")
+panel_node = NodePath("Static")
+from_node = NodePath("From")
+to_node = NodePath("To")
+depend_facility_list = [null]
+metadata/_edit_group_ = true
+
+[node name="From" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1000755430]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/DoorPanel" unique_id=1330628395]
+transform = Transform3D(1, 3.0199158e-07, -1.32004715e-14, 0, -4.371139e-08, -1, -3.0199158e-07, 1, -4.371139e-08, 0, 3, 0)
+
+[node name="Shape" type="CollisionShape3D" parent="FacilityRoot/DoorPanel/Static" unique_id=649769431]
+shape = SubResource("BoxShape3D_cmxue")
+
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/DoorPanel/Static" unique_id=726418014]
+mesh = SubResource("BoxMesh_awyxq")
+
+[node name="To" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1100783675]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 3, 0)
+
+[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=1760832454 node_paths=PackedStringArray("interact_proxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -5)
+script = ExtResource("4_ecicg")
+interact_proxy = NodePath("Static")
+metadata/_custom_type_script = "uid://b6raltksh7sww"
+metadata/_edit_group_ = true
+
+[node name="Static" type="StaticBody3D" parent="FacilityRoot/FacilityButton" unique_id=553962676]
+
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1444984847]
+shape = SubResource("CylinderShape3D_ecicg")
+
+[node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1426763688]
+mesh = SubResource("CylinderMesh_p6ene")
+
+[node name="FacilityProxy" type="Node3D" parent="FacilityRoot" unique_id=1651149101]
+script = ExtResource("5_p6ene")
+metadata/_custom_type_script = "uid://b4h2gd5bap2xd"
+metadata/_edit_group_ = true
+
+[node name="FacilityPortal" type="Node3D" parent="FacilityRoot" unique_id=1165142825 node_paths=PackedStringArray("area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -11)
+script = ExtResource("5_awyxq")
+area = NodePath("Area")
+metadata/_custom_type_script = "uid://ckkg261ttj5c8"
+metadata/_edit_group_ = true
+
+[node name="Area" type="Area3D" parent="FacilityRoot/FacilityPortal" unique_id=1920351126]
+
+[node name="Collision" type="CollisionShape3D" parent="FacilityRoot/FacilityPortal/Area" unique_id=1508775831]
+shape = SubResource("BoxShape3D_g4y41")
+
+[node name="Rigid" type="Node3D" parent="." unique_id=1080500390]
+
+[node name="Cube" type="RigidBody3D" parent="Rigid" unique_id=671126773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Rigid/Cube" unique_id=97935445]
+mesh = SubResource("BoxMesh_yx5lk")
+
+[node name="Shape" type="CollisionShape3D" parent="Rigid/Cube" unique_id=2081384847]
+shape = SubResource("BoxShape3D_ecicg")
+
+[node name="Character" type="Node3D" parent="." unique_id=623073579]
+
+[node name="Player" parent="Character" unique_id=286526679 instance=ExtResource("6_g4y41")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -4)
+
+[node name="Environment" type="Node3D" parent="." unique_id=1234191155]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Directional" type="DirectionalLight3D" parent="Environment" unique_id=350768197]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Environment" type="WorldEnvironment" parent="Environment" unique_id=1343380297]
+environment = SubResource("Environment_g4y41")
