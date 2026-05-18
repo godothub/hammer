@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://8s22mmalmah7" path="res://addons/hammer/scene.gd" id="1_ecicg"]
 [ext_resource type="Script" uid="uid://b6raltksh7sww" path="res://example/script/facility/facility_switch.gd" id="4_ecicg"]
 [ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/script/facility/facility_area.gd" id="5_awyxq"]
-[ext_resource type="Script" uid="uid://b4h2gd5bap2xd" path="res://example/script/facility/facility_proxy.gd" id="5_p6ene"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/script/player.tscn" id="6_g4y41"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="6_g4y41"]
 [ext_resource type="Script" uid="uid://sg78xfnx3wa8" path="res://example/script/facility/facility_panel.gd" id="6_hp16u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
@@ -48,8 +47,11 @@ background_mode = 2
 sky = SubResource("Sky_trn2v")
 tonemap_mode = 2
 
-[node name="Scene0" type="Node" unique_id=85275569]
+[node name="Scene0" type="Node" unique_id=85275569 node_paths=PackedStringArray("archive_node_table")]
 script = ExtResource("1_ecicg")
+archive_node_table = {
+NodePath("Rigid/Cube"): PackedStringArray("transform")
+}
 
 [node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
 
@@ -146,11 +148,6 @@ shape = SubResource("CylinderShape3D_ecicg")
 
 [node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1426763688]
 mesh = SubResource("CylinderMesh_p6ene")
-
-[node name="FacilityProxy" type="Node3D" parent="FacilityRoot" unique_id=1651149101]
-script = ExtResource("5_p6ene")
-metadata/_custom_type_script = "uid://b4h2gd5bap2xd"
-metadata/_edit_group_ = true
 
 [node name="FacilityPortal" type="Node3D" parent="FacilityRoot" unique_id=1165142825 node_paths=PackedStringArray("area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -11)

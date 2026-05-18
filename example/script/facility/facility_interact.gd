@@ -1,4 +1,3 @@
-@tool
 @abstract
 extends Facility
 class_name FacilityInteract

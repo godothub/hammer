@@ -1,4 +1,3 @@
-@tool
 extends FacilityInteract
 class_name FacilitySwitch
 

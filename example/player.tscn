@@ -29,15 +29,6 @@ metadata/_custom_type_script = "uid://idbgb32cd6mu"
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_hhskb"]
-radius = 5.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_6v7lc"]
-radius = 5.0
-height = 10.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vkktu"]
-
 [node name="Player" type="CharacterBody3D" unique_id=286526679]
 script = ExtResource("1_rxg4x")
 driver_list = Array[ExtResource("2_6dmbd")]([SubResource("Resource_hhskb"), SubResource("Resource_bmnku"), SubResource("Resource_6v7lc"), SubResource("Resource_vkktu")])
@@ -56,15 +47,19 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3qu6b")
 
-[node name="ToolGravity" type="Node3D" parent="." unique_id=281685168]
-visible = false
-metadata/_custom_type_script = "uid://capisgykn02eu"
-
-[node name="Area" type="Area3D" parent="ToolGravity" unique_id=353696990]
-
-[node name="Collision" type="CollisionShape3D" parent="ToolGravity/Area" unique_id=1554656620]
-shape = SubResource("SphereShape3D_hhskb")
-
-[node name="Mesh" type="MeshInstance3D" parent="ToolGravity" unique_id=1676184967]
-mesh = SubResource("SphereMesh_6v7lc")
-surface_material_override/0 = SubResource("ShaderMaterial_vkktu")
+[node name="Label" type="Label" parent="." unique_id=708223532]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "·"
+horizontal_alignment = 1
+vertical_alignment = 1

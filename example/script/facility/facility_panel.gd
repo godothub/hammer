@@ -1,4 +1,3 @@
-@tool
 extends Facility
 class_name FacilityPanel
 ## 移动平台
@@ -28,6 +27,7 @@ func _rotate(_delta: float, _to: Vector3):
 
 
 func _physics_process(_delta: float) -> void:
+	if Engine.is_editor_hint():return
 	if from_node and to_node:
 		if enable:
 			_move(_delta, to_node.global_position)
@@ -38,6 +38,7 @@ func _physics_process(_delta: float) -> void:
 	active = enable
 
 func _ready() -> void:
+	if Engine.is_editor_hint():return
 	panel_node.global_transform = from_node.global_transform
 
 func _get_configuration_warnings() -> PackedStringArray:

@@ -1,4 +1,3 @@
-@tool
 extends CharacterBody3D
 class_name Character
 ## 专门用于游戏内角色的节点。

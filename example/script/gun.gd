@@ -1,5 +1,5 @@
 extends Tool
-class_name ToolGun
+class_name Gun
 ## 枪类工具
 
 

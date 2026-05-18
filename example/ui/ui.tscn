@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dd08876mmns4f"]
 
-[ext_resource type="Script" uid="uid://cycrhc2m3xlh0" path="res://example/menu/menu.gd" id="1_dwjj2"]
-[ext_resource type="Script" uid="uid://ypmmih1tv76n" path="res://example/menu/main.gd" id="2_0vc6l"]
-[ext_resource type="Script" uid="uid://c0tmws0ah1k6n" path="res://example/menu/archive.gd" id="3_0vc6l"]
+[ext_resource type="Script" uid="uid://djediucr23va2" path="res://example/ui/ui.gd" id="1_8y0ga"]
+[ext_resource type="Script" uid="uid://ypmmih1tv76n" path="res://example/ui/main.gd" id="2_1ue12"]
+[ext_resource type="Script" uid="uid://c0tmws0ah1k6n" path="res://example/ui/archive.gd" id="3_gbbwt"]
 
-[node name="Menu" type="Control" unique_id=24781805]
+[node name="UI" type="Control" unique_id=1402930602]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -12,8 +12,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_dwjj2")
-background_list = PackedStringArray("uid://bch5cu8gha46s")
+script = ExtResource("1_8y0ga")
+metadata/_custom_type_script = "uid://cycrhc2m3xlh0"
 
 [node name="Title" type="Label" parent="." unique_id=2113719460]
 layout_mode = 1
@@ -35,19 +35,21 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
-offset_top = 32.0
+offset_top = -32.0
 offset_right = 320.0
 offset_bottom = 224.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-item_count = 4
+item_count = 5
 item_0/text = "Continue"
-item_1/text = "Archive"
-item_2/text = "Option"
-item_3/text = "Exit"
-script = ExtResource("2_0vc6l")
+item_1/text = "SaveGame"
+item_2/text = "Archive"
+item_3/text = "Option"
+item_4/text = "Exit"
+script = ExtResource("2_1ue12")
 
 [node name="Archive" type="Tree" parent="." unique_id=648978020]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -61,4 +63,4 @@ grow_vertical = 2
 column_titles_visible = true
 hide_folding = true
 hide_root = true
-script = ExtResource("3_0vc6l")
+script = ExtResource("3_gbbwt")

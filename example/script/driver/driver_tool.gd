@@ -1,41 +1,33 @@
 extends Driver
 class_name DriverTool
 
-### 工具射线
-#var ray_node:RayCast3D
-#@export_node_path("RayCast3D") var ray_path:NodePath:
-	#set(_ray_path):
-		#ray_path = _ray_path
-		#ray_update()
-### 更新射线
-#func ray_update() -> void:
-	#if character and ray_path:
-		#ray_node = character.get_node(ray_path)
-	#else:
-		#ray_node = null
 
 signal current_updated_signal(_index:int)
 ## 当前序号
 @export var current: int = -1
 ## 当前工具更新
 func use(_index:int) -> void:
-	var tool:Tool = get_or_null(_index)
+	var tool:Tool = get_tool_or_null(_index)
 	if tool:
 		current = -1
 		tool.hide()
-		tool.enable = false
-	tool = get_or_null(_index)
+		tool.process_mode = Node.PROCESS_MODE_DISABLED
+	tool = get_tool_or_null(_index)
 	if tool:
 		current = _index
 		tool.show()
-		tool.enable = true
+		tool.process_mode = Node.PROCESS_MODE_INHERIT
 	current_updated_signal.emit(current)
 
+func nonuse_all():
+	for tool:Tool in list:
+		tool.hide()
+		tool.process_mode = Node.PROCESS_MODE_DISABLED
 
 ## 工具列表
-@export_node_path("Tool") var path_list: Array[NodePath]:
-	set(_path_list):
-		path_list = _path_list
+@export_node_path("Tool") var driver_path_list: Array[NodePath]:
+	set(_driver_path_list):
+		driver_path_list = _driver_path_list
 		list_update()
 var list:Array[Tool]:
 	set(_list):
@@ -47,8 +39,8 @@ var list:Array[Tool]:
 ## 更新列表
 func list_update() -> void:
 	var tool_list:Array[Tool]
-	if character and path_list:
-		for _path:NodePath in path_list:
+	if character and driver_path_list:
+		for _path:NodePath in driver_path_list:
 			tool_list.append(character.get_node(_path))
 	else:
 		tool_list = []
@@ -63,7 +55,7 @@ func del(_index:int) -> void:
 	var tool:Tool = list.pop_at(_index)
 	if tool: tool.manager = null
 ## 获取工具
-func get_or_null(_index:int) -> Tool:
+func get_tool_or_null(_index:int) -> Tool:
 	if _index < -1 and list.size() < _index:
 		return list.get(current)
 	else:
@@ -84,6 +76,7 @@ func previous() -> void:
 func _ready() -> void:
 	#ray_update()
 	list_update()
+	nonuse_all()
 	use(current)
 
 func _physics_process(_delta: float) -> void:

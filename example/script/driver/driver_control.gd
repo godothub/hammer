@@ -13,7 +13,7 @@ var driver_basic:DriverBasic
 
 @export_group("mouse")
 @export var mouse:bool = true
-@export var mouse_senes:Vector2 = Vector2(0.1, 0.1)
+@export var mouse_senes:Vector2 = Vector2(0.05, 0.05)
 
 @export_group("jump")
 @export var jump:float = true

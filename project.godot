@@ -17,12 +17,11 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="hammer-example"
 run/main_scene="uid://bch5cu8gha46s"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-run/main_menu="uid://cuji4vrmbiubp"
 
 [autoload]
 
-Archive="*uid://cc1bmbtgcxaig"
-Menu="*uid://dd08876mmns4f"
+ArchiveManager="*uid://ct7t55xg212d"
+UserInterface="*uid://dd08876mmns4f"
 
 [display]
 
@@ -101,10 +100,6 @@ Pause={
 3d_physics/layer_2="角色"
 3d_physics/layer_3="刚体"
 3d_physics/layer_4="交互"
-
-[physics]
-
-common/physics_ticks_per_second=120
 
 [rendering]
 
