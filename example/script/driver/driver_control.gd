@@ -38,7 +38,7 @@ func _input(_event: InputEvent) -> void:
 			driver_basic.head.rotation.x = clamp(driver_basic.head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(_delta: float) -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if not driver_basic: return
 	

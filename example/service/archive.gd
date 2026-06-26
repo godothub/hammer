@@ -1,3 +1,4 @@
+@tool
 extends Archive
 
 ## 存档日期格式
@@ -16,6 +17,3 @@ func _saving() -> void:
 
 func _init() -> void:
 	saving_signal.connect(_saving)
-
-func _ready() -> void:
-	print(get_tree().current_scene)

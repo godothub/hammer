@@ -45,8 +45,6 @@ func driver_ready() -> void:
 	for _driver:Driver in driver_list:
 		_driver._ready()
 
-
-
 func _ready() -> void:
 	if Engine.is_editor_hint():return
 	driver_ready()

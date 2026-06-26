@@ -4,7 +4,7 @@ extends UI
 
 func _run() -> void:
 	hide()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode   = Input.MOUSE_MODE_CAPTURED
 
 func _stop() -> void:
 	show()
@@ -13,7 +13,6 @@ func _stop() -> void:
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	if UserInterface != self:queue_free()
-	
 	set_status(true)
 
 func _input(_event: InputEvent) -> void:

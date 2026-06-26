@@ -10,24 +10,24 @@ func _visibility_changed() -> void:
 			set_item_disabled(1, false)
 
 func _item_selected(_index:int) -> void:
-	var archive:Control = UserInterface.get_node("Archive")
 	match get_item_text(_index):
 		"NewGame":
 			pass
-		"SaveGame":
-			ArchiveManager.save()
-			archive.flash()
 		"Continue":
 			UserInterface.set_status(true)
-		"Archive":
-			archive.visible = not archive.visible
-		"Option":
-			pass
+		"SaveGame":
+			ArchiveManager.save()
+			%Secondary.page = %Secondary.PageEnum.ARCHIVES
+		"Archives":
+			%Secondary.page = %Secondary.PageEnum.ARCHIVES
+		"Settings":
+			%Secondary.page = %Secondary.PageEnum.SETTINGS
 		"Exit":
 			get_tree().quit()
 	
 	deselect(_index)
 
 func _init() -> void:
+	if Engine.is_editor_hint():return
 	visibility_changed.connect(_visibility_changed)
 	item_selected.connect(_item_selected)

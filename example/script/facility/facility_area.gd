@@ -33,7 +33,7 @@ func body_enter(_body: Node3D) -> void:
 	elif enable_rigid and _body is RigidBody3D:
 		body_list.append(_body)
 	active_update()
-## 物体推出
+## 物体离开
 func body_exit(_body: Node3D) -> void:
 	if _body in body_list:
 		body_list.erase(_body)

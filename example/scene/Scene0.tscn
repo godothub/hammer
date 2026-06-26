@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bch5cu8gha46s"]
 
-[ext_resource type="Script" uid="uid://8s22mmalmah7" path="res://addons/hammer/scene.gd" id="1_ecicg"]
+[ext_resource type="Script" uid="uid://wmj6t0ivk3q2" path="res://example/scene/scene.gd" id="1_3nkou"]
 [ext_resource type="Script" uid="uid://b6raltksh7sww" path="res://example/script/facility/facility_switch.gd" id="4_ecicg"]
 [ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/script/facility/facility_area.gd" id="5_awyxq"]
 [ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="6_g4y41"]
@@ -39,18 +39,18 @@ size = Vector3(2, 2, 2)
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_trn2v"]
+[sub_resource type="Sky" id="Sky_53ptp"]
 sky_material = SubResource("ProceduralSkyMaterial_p6ene")
 
 [sub_resource type="Environment" id="Environment_g4y41"]
 background_mode = 2
-sky = SubResource("Sky_trn2v")
+sky = SubResource("Sky_53ptp")
 tonemap_mode = 2
 
-[node name="Scene0" type="Node" unique_id=85275569 node_paths=PackedStringArray("archive_node_table")]
-script = ExtResource("1_ecicg")
-archive_node_table = {
-NodePath("Rigid/Cube"): PackedStringArray("transform")
+[node name="Scene0" type="Node" unique_id=85275569 node_paths=PackedStringArray("change_scene_table")]
+script = ExtResource("1_3nkou")
+change_scene_table = {
+NodePath("FacilityRoot/FacilityPortal"): "res://example/scene/Scene1.tscn"
 }
 
 [node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]

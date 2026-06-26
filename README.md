@@ -8,26 +8,25 @@ Enable developers to focus on 3D game development, making Godot as simple as Ham
 
 > The frequency of English updates may be slightly slower than that of Chinese.
 
-## Features
+Hammer is developed based on the idea of separating `service`, `data`, and `control`. Upon startup, scripts or scenes with `service` functions are loaded through the engine's automatic loading feature. These services will be initialized through `data` in project settings and custom scripts, and will be `controlled` by game scripts or the user interface during runtime.
 
-### Framework
+## BasicServices
 
-#### Main Menu
+> Note: The main game scene is also classified as part of the service. Therefore, in the design of this framework, nodes within the main scene should focus on game interaction or perform simple management of the service.
+### Archive Manager
 
-The Main Menu is the only menu in the game and serves as the core method for players to control the game. You can find "Set as Main Menu" by right-clicking a packed scene file (*.tscn) in the file menu. This will globally autoload and call it under the name "Menu".
+The archive manager is used to manage data that needs to be stored in the game.
 
-#### Archive
+### Game Settings
 
-Archive is the primary method for storing game data. By accessing the Archive, you can register a property list for specified nodes and apply the archive data to the corresponding registered nodes.
+Game settings are used to manage data that does not change with the game.
 
-### Game
+### User Interface
 
-#### Facility
+The user interface belongs to both the user and the control and service, and is the main way for the user to interact with the service.
 
-Facility is the basic type for all detection and actions within the game. It determines its own activation (enable) by checking the active state of dependent facilities (depend_facility_list). When activated, it can also determine its own active state.
+## Game Features
 
-## Technical Route
+### Facility
 
-Hammer is an extension plugin for Godot, dedicated to using Godot's existing features to implement a game development framework.
-
-Therefore, most behaviors of Hammer will be attached to Godot's functionality. New concepts will only be introduced in the event of a severe lack of required features in the engine.
+The activation status of a facility depends on its dependent facilities, and each facility can become a dependent facility of other facilities. When all the dependent facilities of a certain facility are in the active state, the facility will be in the enable state.

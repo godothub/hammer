@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dd08876mmns4f"]
 
-[ext_resource type="Script" uid="uid://djediucr23va2" path="res://example/ui/ui.gd" id="1_8y0ga"]
-[ext_resource type="Script" uid="uid://ypmmih1tv76n" path="res://example/ui/main.gd" id="2_1ue12"]
-[ext_resource type="Script" uid="uid://c0tmws0ah1k6n" path="res://example/ui/archive.gd" id="3_gbbwt"]
+[ext_resource type="Script" uid="uid://djediucr23va2" path="res://example/service/ui/ui.gd" id="1_8y0ga"]
+[ext_resource type="Script" uid="uid://ypmmih1tv76n" path="res://example/service/ui/primary.gd" id="2_1ue12"]
+[ext_resource type="Script" uid="uid://c0tmws0ah1k6n" path="res://example/service/ui/secondary.gd" id="3_gbbwt"]
 
 [node name="UI" type="Control" unique_id=1402930602]
 process_mode = 3
@@ -29,7 +29,8 @@ theme_override_font_sizes/font_size = 64
 text = "Hammer"
 vertical_alignment = 1
 
-[node name="Main" type="ItemList" parent="." unique_id=84918411]
+[node name="Primary" type="ItemList" parent="." unique_id=84918411]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -43,13 +44,13 @@ theme_override_font_sizes/font_size = 24
 item_count = 5
 item_0/text = "Continue"
 item_1/text = "SaveGame"
-item_2/text = "Archive"
-item_3/text = "Option"
+item_2/text = "Archives"
+item_3/text = "Settings"
 item_4/text = "Exit"
 script = ExtResource("2_1ue12")
 
-[node name="Archive" type="Tree" parent="." unique_id=648978020]
-visible = false
+[node name="Secondary" type="Tree" parent="." unique_id=648978020]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -58,9 +59,4 @@ offset_left = 384.0
 offset_top = 64.0
 offset_right = -64.0
 offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 2
-column_titles_visible = true
-hide_folding = true
-hide_root = true
 script = ExtResource("3_gbbwt")

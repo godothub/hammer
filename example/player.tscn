@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dc5hdt84wkldm"]
 
-[ext_resource type="Script" uid="uid://k7evmg086scu" path="res://addons/hammer/character.gd" id="1_rxg4x"]
-[ext_resource type="Script" uid="uid://jejqwg00wtje" path="res://addons/hammer/driver.gd" id="2_6dmbd"]
+[ext_resource type="Script" uid="uid://k7evmg086scu" path="res://addons/hammer/game/character.gd" id="1_rxg4x"]
+[ext_resource type="Script" uid="uid://jejqwg00wtje" path="res://addons/hammer/game/driver.gd" id="2_6dmbd"]
 [ext_resource type="Script" uid="uid://da2npij3kjs3i" path="res://example/script/driver/driver_control.gd" id="3_0dxee"]
 [ext_resource type="Script" uid="uid://4bp5t3ydd0r4" path="res://example/script/driver/driver_basic.gd" id="4_bmnku"]
 [ext_resource type="Script" uid="uid://pv2hpamfdink" path="res://example/script/driver/driver_tool.gd" id="5_hhskb"]
