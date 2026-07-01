@@ -4,15 +4,16 @@ class_name Settings
 ## 游戏设置服务。
 ## 在初始化之前应当使用 init_setting 传递默认参数，以保证此参数第一次出现时不会出错。
 
+var config:ConfigFile = ConfigFile.new()
+
+## 获取设置文件路径。
 func get_file() -> String:
 	return ProjectSettings.get_setting("service/game_settings/file")
 
-var config:ConfigFile = ConfigFile.new()
-
-## 保存设置文件
+## 保存设置文件。
 func save() -> Error:
 	return config.save(get_file())
-## 应用所有设置
+## 读取设置文件。
 func read() -> void:
 	return config.load(get_file())
 
@@ -35,20 +36,20 @@ func init_setting(_section:String, _setting:String, _default:Variant) -> void:
 	if not config.has_section_key(_section, _setting):
 		config.set_value(_section, _setting, _default)
 
-## 项目设置表。
-var PROJECT_SETTING_TABLE:Array[Dictionary] = [
-	{
-		"property_info":{
-			"name": "service/game_settings/file",
-			"type": TYPE_STRING,
-			"hint": PROPERTY_HINT_FILE_PATH
-		},
-		"initial_value":"user://settings.cfg"
-	},
-]
+
 ## 更新项目设置。
 func _update_project_settings() -> void:
-	for setting:Dictionary in PROJECT_SETTING_TABLE:
+	var project_setting_table:Array[Dictionary] = [
+		{
+			"property_info":{
+				"name": "service/game_settings/file",
+				"type": TYPE_STRING,
+				"hint": PROPERTY_HINT_FILE_PATH
+			},
+			"initial_value":"user://settings.cfg"
+		},
+	]
+	for setting:Dictionary in project_setting_table:
 		var property_info:Dictionary = setting["property_info"]
 		var initial_value:Variant = setting["initial_value"]
 		if not ProjectSettings.has_setting(property_info["name"]):

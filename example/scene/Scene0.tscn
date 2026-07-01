@@ -86,13 +86,13 @@ shape = SubResource("BoxShape3D_trn2v")
 
 [node name="FacilityRoot" type="Node3D" parent="." unique_id=654795169]
 
-[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" unique_id=1189200522 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
+[node name="FacilityPanel" type="Node3D" parent="FacilityRoot" unique_id=1189200522 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list") groups=["facility"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 script = ExtResource("6_hp16u")
 panel_node = NodePath("Static")
 from_node = NodePath("From")
 to_node = NodePath("To")
-depend_facility_list = [null]
+depend_facility_list = [NodePath("../FacilityButton")]
 metadata/_edit_group_ = true
 
 [node name="To" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=720064612]
@@ -110,13 +110,13 @@ mesh = SubResource("BoxMesh_awyxq")
 [node name="From" type="Marker3D" parent="FacilityRoot/FacilityPanel" unique_id=1429249365]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 
-[node name="DoorPanel" type="Node3D" parent="FacilityRoot" unique_id=1130011510 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list")]
+[node name="DoorPanel" type="Node3D" parent="FacilityRoot" unique_id=1130011510 node_paths=PackedStringArray("panel_node", "from_node", "to_node", "depend_facility_list") groups=["facility"]]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, -10)
 script = ExtResource("6_hp16u")
 panel_node = NodePath("Static")
 from_node = NodePath("From")
 to_node = NodePath("To")
-depend_facility_list = [null]
+depend_facility_list = [NodePath("../FacilityButton")]
 metadata/_edit_group_ = true
 
 [node name="From" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1000755430]
@@ -134,7 +134,7 @@ mesh = SubResource("BoxMesh_awyxq")
 [node name="To" type="Marker3D" parent="FacilityRoot/DoorPanel" unique_id=1100783675]
 transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 3, 0)
 
-[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=1760832454 node_paths=PackedStringArray("interact_proxy")]
+[node name="FacilityButton" type="Node3D" parent="FacilityRoot" unique_id=1760832454 node_paths=PackedStringArray("interact_proxy") groups=["facility"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -5)
 script = ExtResource("4_ecicg")
 interact_proxy = NodePath("Static")
@@ -149,7 +149,7 @@ shape = SubResource("CylinderShape3D_ecicg")
 [node name="Mesh" type="MeshInstance3D" parent="FacilityRoot/FacilityButton/Static" unique_id=1426763688]
 mesh = SubResource("CylinderMesh_p6ene")
 
-[node name="FacilityPortal" type="Node3D" parent="FacilityRoot" unique_id=1165142825 node_paths=PackedStringArray("area")]
+[node name="FacilityPortal" type="Node3D" parent="FacilityRoot" unique_id=1165142825 node_paths=PackedStringArray("area") groups=["facility"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -11)
 script = ExtResource("5_awyxq")
 area = NodePath("Area")
@@ -163,7 +163,7 @@ shape = SubResource("BoxShape3D_g4y41")
 
 [node name="Rigid" type="Node3D" parent="." unique_id=1080500390]
 
-[node name="Cube" type="RigidBody3D" parent="Rigid" unique_id=671126773]
+[node name="Cube" type="RigidBody3D" parent="Rigid" unique_id=671126773 groups=["rigid"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
 metadata/_edit_group_ = true
 
@@ -175,7 +175,7 @@ shape = SubResource("BoxShape3D_ecicg")
 
 [node name="Character" type="Node3D" parent="." unique_id=623073579]
 
-[node name="Player" parent="Character" unique_id=286526679 instance=ExtResource("6_g4y41")]
+[node name="Player" parent="Character" unique_id=286526679 groups=["character"] instance=ExtResource("6_g4y41")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -4)
 
 [node name="Environment" type="Node3D" parent="." unique_id=1234191155]

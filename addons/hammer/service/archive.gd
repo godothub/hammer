@@ -4,62 +4,70 @@ class_name Archive
 ## 这是一个存档管理脚本，通过自动加载实现全局可访问。
 ## 对本脚本会对注册的节点的导出参数进行存储。
 
-var DIRECTORY:String
-## 存档文件目录，在任何情况下都不应当直接修改此项。
-## 若需修改请设置 ProjectSettings 的 “service/archive_manager/directory” 项。
+var data:ConfigFile = ConfigFile.new() ## 数据存储。
 
-var archive:ConfigFile = ConfigFile.new() ## 数据存储。
-var file:String ## 存档文件文件名
-
+## 获取存档目录。
+func get_directory() -> String:
+	return ProjectSettings.get_setting("service/archive_manager/directory")
 ## 获取存档文件列表。
-func get_archive_files() -> PackedStringArray:
-	DirAccess.make_dir_recursive_absolute(DIRECTORY)
-	var files:PackedStringArray = DirAccess.open(DIRECTORY).get_files()
+func get_files() -> PackedStringArray:
+	var directory:String = get_directory()
+	DirAccess.make_dir_recursive_absolute(directory)
+	var files:PackedStringArray = DirAccess.open(directory).get_files()
 	return files
+## 删除存档文件。
+func delete(_file:String) -> Error:
+	return DirAccess.remove_absolute(get_directory().path_join(_file))
 
-signal saving_signal ## 在保存操作执行前触发，用于告知所有即将存储的数据。
-signal applying_signal ## 在读取完成后触发，用于恢复所有数据。
+signal update_data_signal ## 数据更新信号。当需要更新数据时被触发。
+## 通过重写此函数扩展数据更新的行为。
+func _update_data() -> void:pass
+## 更新数据。
+func update_data() -> void:
+	_update_data()
+	update_data_signal.emit()
 
-## 存储所有数据。
-func save(_file:String = file) -> Error:
-	file = _file
-	saving_signal.emit()
-	return archive.save(DIRECTORY.path_join(file))
+## 存储所有数据到指定文件。
+func save(_file:String) -> Error:
+	update_data()
+	return data.save(get_directory().path_join(_file))
 
-## 读取所有内容并应用。
-func apply(_file:String = file) -> Error:
-	file = _file
-	var error:Error = archive.load(DIRECTORY.path_join(file))
-	if error == OK:
-		applying_signal.emit()
+## 通过扩展此函数扩展运行存档的行为。
+func _play() -> void:pass
+## 运行指定存档文件。
+func play(_file:String) -> Error:
+	var error:Error = data.load(get_directory().path_join(_file))
+	if error == OK: _play()
 	return error
 
-func delete(_file:String) -> Error:
-	return DirAccess.remove_absolute(DIRECTORY.path_join(_file))
+
+## 节是否存在。
+func has_section(_section:String) -> bool:
+	return data.has_section(_section)
 ## 存储项是否存在。
 func has_value(_section:String, _key:String) -> bool:
-	return archive.has_section_key(_section, _key)
+	return data.has_section_key(_section, _key)
 ## 设置项参数。
 func set_value(_section:String, _key:String, _value:Variant) -> void:
-	archive.set_value(_section, _key, _value)
+	data.set_value(_section, _key, _value)
 ## 获取项参数。
 func get_value(_section:String, _key:String) -> Variant:
-	return archive.get_value(_section, _key)
+	return data.get_value(_section, _key)
 
-## 项目设置表。
-var PROJECT_SETTING_TABLE:Array[Dictionary] = [
-	{
-		"property_info":{
-			"name": "service/archive_manager/directory",
-			"type": TYPE_STRING,
-			"hint": PROPERTY_HINT_DIR
-		},
-		"initial_value":"user://archives/"
-	},
-]
+
 ## 更新项目设置。
 func _update_project_settings() -> void:
-	for setting:Dictionary in PROJECT_SETTING_TABLE:
+	var project_setting_table:Array[Dictionary] = [
+		{
+			"property_info":{
+				"name": "service/archive_manager/directory",
+				"type": TYPE_STRING,
+				"hint": PROPERTY_HINT_DIR
+			},
+			"initial_value":"user://archives/"
+		},
+	]
+	for setting:Dictionary in project_setting_table:
 		var property_info:Dictionary = setting["property_info"]
 		var initial_value:Variant = setting["initial_value"]
 		if not ProjectSettings.has_setting(property_info["name"]):
@@ -67,8 +75,7 @@ func _update_project_settings() -> void:
 		if Engine.is_editor_hint():
 			ProjectSettings.add_property_info(setting["property_info"])
 			ProjectSettings.set_initial_value(property_info["name"], initial_value)
-	
-	DIRECTORY = ProjectSettings.get_setting("service/archive_manager/directory")
+
 func _init() -> void:
 	_update_project_settings()
 	ProjectSettings.settings_changed.connect(_update_project_settings)

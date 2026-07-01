@@ -17,7 +17,7 @@ func _flash_archives() -> void:
 	set_hide_folding(true)
 	# 绘制
 	var root:TreeItem = create_item()
-	var files:PackedStringArray = ArchiveManager.get_archive_files()
+	var files:PackedStringArray = ArchiveManager.get_files()
 	var play_texture:Texture2D = load(icon_directory.path_join("play.svg"))
 	var remove_texture:Texture2D = load(icon_directory.path_join("remove.svg"))
 	for file in files:
@@ -101,7 +101,8 @@ func _button_clicked_archives(_item: TreeItem, _column: int, _id: int, _mouse_bu
 	var file = _item.get_text(0)
 	match _id:
 		0:
-			ArchiveManager.apply(file)
+			ArchiveManager.play(file)
+			
 		1:
 			ArchiveManager.delete(file)
 	_flash()

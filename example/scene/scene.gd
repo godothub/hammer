@@ -10,22 +10,32 @@ class_name Scene
 			for facility in _change_scene_table:
 				facility.actived_signal.connect(_change_scene)
 		change_scene_table = _change_scene_table
-
-@export var property_archive_table:Dictionary[Node, PackedStringArray]
-
-func _saving() -> void:
-	ArchiveManager.set_value("", "scene_path", scene_file_path)
-
-func _applying() -> void:
-	var scene_path:String = ArchiveManager.get_value("", "scene_path")
-	if scene_path != scene_file_path:
-		get_tree().change_scene_to_file(scene_path)
-
-
+## 场景切换。
 func _change_scene(_facility:Facility) -> void:
-	get_tree().change_scene_to_file(change_scene_table[_facility])
+	get_tree().change_scene_to_file.call_deferred(change_scene_table[_facility])
 
 
-func _enter_tree() -> void:
-	ArchiveManager.saving_signal.connect(_saving)
-	ArchiveManager.applying_signal.connect(_applying)
+## 属性存档表。
+@export var group_archive_table:Dictionary[StringName, PackedStringArray] = {
+	"character": ["global_transform", "velocity"],
+	"rigid": ["global_transform", "linear_velocity", "angular_velocity", "constant_force", "constant_torque"],
+	"facility": ["enable"]
+}
+func _update_data_groups() -> void:
+	for group:StringName in group_archive_table:
+		for node:Node in get_tree().get_nodes_in_group(group):
+			var property_table:Dictionary[StringName, Variant]
+			for property:String in group_archive_table[group]:
+				property_table.set(property, node.get(property))
+			ArchiveManager.set_value(scene_file_path, get_path_to(node), property_table)
+func _play() -> void:
+	if not ArchiveManager.has_section(scene_file_path):return
+	for group:StringName in group_archive_table:
+		for node:Node in get_tree().get_nodes_in_group(group):
+			var property_table:Dictionary[StringName, Variant] = ArchiveManager.get_value(scene_file_path, get_path_to(node))
+			for property:String in property_table:
+				node.set(property, property_table[property])
+			
+func _init() -> void:
+	ArchiveManager.update_data_signal.connect(_update_data_groups)
+	ready.connect(_play)

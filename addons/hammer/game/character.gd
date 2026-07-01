@@ -3,6 +3,8 @@ class_name Character
 ## 专门用于游戏内角色的节点。
 ## Character 使用 Driver 控制，使 Character 的控制组件模块化。
 
+## 注意，由于 Driver 可能会在未来被移除，因此 Character 在未来会被重写。
+
 ## 驱动器列表更新信号，在驱动器列表更新时触发。
 signal driver_list_updated_signal()
 

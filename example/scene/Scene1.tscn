@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c82xvw4ymfa7n"]
 
-[ext_resource type="Script" uid="uid://wmj6t0ivk3q2" path="res://example/scene/scene.gd" id="1_ic7jw"]
+[ext_resource type="Script" uid="uid://wmj6t0ivk3q2" path="res://addons/hammer/game/scene.gd" id="1_ic7jw"]
 [ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/script/facility/facility_area.gd" id="4_18e7j"]
 [ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="5_qvseg"]
 
@@ -35,11 +35,8 @@ background_mode = 2
 sky = SubResource("Sky_53ptp")
 tonemap_mode = 2
 
-[node name="Scene1" type="Node" unique_id=85275569 node_paths=PackedStringArray("change_scene_table")]
+[node name="Scene1" type="Node" unique_id=85275569]
 script = ExtResource("1_ic7jw")
-change_scene_table = {
-NodePath("FacilityRoot/FacilityPortal"): "res://example/scene/Scene0.tscn"
-}
 
 [node name="StaticRoot" type="Node3D" parent="." unique_id=1401771851]
 

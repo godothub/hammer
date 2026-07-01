@@ -2,6 +2,7 @@
 extends Resource
 class_name Driver
 ## 用于驱动 Character 的驱动器。
+## 注意，此类型可能会在未来被移除。
 
 ## 驱动器启用状态
 @export var enable: bool = true
