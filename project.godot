@@ -22,6 +22,11 @@ UserInterface="*uid://dd08876mmns4f"
 GameSettings="*uid://whi8w8ep6cvf"
 ArchiveManager="*uid://ct7t55xg212d"
 
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=576
+
 [dotnet]
 
 project/assembly_name="hammer-example"
@@ -29,6 +34,14 @@ project/assembly_name="hammer-example"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/hammer/plugin.cfg")
+
+[global_group]
+
+HUD=""
+
+[gui]
+
+theme/default_theme_scale=1.5
 
 [input]
 

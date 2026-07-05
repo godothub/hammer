@@ -41,6 +41,12 @@ func _flash_archives() -> void:
 			"mode": TreeItem.CELL_MODE_CHECK
 		}
 	},
+	"control" : {
+		"mouse_sensitivity" : {
+			"mode": TreeItem.CELL_MODE_RANGE,
+			"range": {"min": 0, "max": 100, "step": 0.1},
+		}
+	},
 	"audio" : {
 		"master":{
 			"mode": TreeItem.CELL_MODE_RANGE,

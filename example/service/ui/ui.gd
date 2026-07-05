@@ -4,10 +4,14 @@ extends UI
 
 func _run() -> void:
 	hide()
+	for node:Node in get_tree().get_nodes_in_group("HUD"):
+		node.show()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _stop() -> void:
 	show()
+	for node:Node in get_tree().get_nodes_in_group("HUD"):
+		node.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _input(_event: InputEvent) -> void:

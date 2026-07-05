@@ -17,7 +17,6 @@ func _change_scene(_facility:Facility) -> void:
 
 ## 属性存档表。
 @export var group_archive_table:Dictionary[StringName, PackedStringArray] = {
-	"character": ["global_transform", "velocity"],
 	"rigid": ["global_transform", "linear_velocity", "angular_velocity", "constant_force", "constant_torque"],
 	"facility": ["enable"]
 }

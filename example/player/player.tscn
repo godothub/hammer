@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://dc5hdt84wkldm"]
+
+[ext_resource type="Script" uid="uid://br05osi1ofayn" path="res://example/player/player.gd" id="1_vjlsr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3qu6b"]
+
+[sub_resource type="Animation" id="Animation_vjlsr"]
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_rxg4x"]
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rxg4x"]
+_data = {
+&"midair": SubResource("Animation_vjlsr"),
+&"walk": SubResource("Animation_rxg4x")
+}
+
+[node name="Player" type="CharacterBody3D" unique_id=33420398 node_paths=PackedStringArray("head_node", "tool_ray_cast")]
+script = ExtResource("1_vjlsr")
+head_node = NodePath("Camera")
+health_range_control = NodePath("HUD/Health")
+tool_ray_cast = NodePath("Camera/RayCast")
+action_current = &"walk"
+action_animation_player = NodePath("AnimationPlayer")
+action_property_table = Dictionary[StringName, Dictionary]({
+&"midair": {
+"move_accel": 1.0,
+"move_speed": 5.0
+},
+&"walk": {
+"move_accel": 10.0,
+"move_speed": 5.0
+}
+})
+metadata/_custom_type_script = "uid://k7evmg086scu"
+
+[node name="Shape" type="CollisionShape3D" parent="." unique_id=1698978153]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_t6lng")
+
+[node name="Camera" type="Camera3D" parent="." unique_id=620027590]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+current = true
+
+[node name="ToolMarker" type="Marker3D" parent="Camera" unique_id=153841061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.5)
+
+[node name="RayCast" type="RayCast3D" parent="Camera" unique_id=496919843]
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1003098324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_3qu6b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1737914806]
+libraries/ = SubResource("AnimationLibrary_rxg4x")
+autoplay = &"midair"
+
+[node name="HUD" type="Control" parent="." unique_id=1660512090 groups=["HUD"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Crosshair" type="Label" parent="HUD" unique_id=708223532]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -44.0
+offset_right = 20.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "·"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health" type="ProgressBar" parent="HUD" unique_id=82553874]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -128.0
+offset_right = 448.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+step = 1.0

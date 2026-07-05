@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bch5cu8gha46s"]
 
 [ext_resource type="Script" uid="uid://wmj6t0ivk3q2" path="res://example/scene/scene.gd" id="1_3nkou"]
-[ext_resource type="Script" uid="uid://b6raltksh7sww" path="res://example/script/facility/facility_switch.gd" id="4_ecicg"]
-[ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/script/facility/facility_area.gd" id="5_awyxq"]
-[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player.tscn" id="6_g4y41"]
-[ext_resource type="Script" uid="uid://sg78xfnx3wa8" path="res://example/script/facility/facility_panel.gd" id="6_hp16u"]
+[ext_resource type="Script" uid="uid://b6raltksh7sww" path="res://example/facility/facility_switch.gd" id="4_ecicg"]
+[ext_resource type="Script" uid="uid://ckkg261ttj5c8" path="res://example/facility/facility_area.gd" id="5_awyxq"]
+[ext_resource type="PackedScene" uid="uid://dc5hdt84wkldm" path="res://example/player/player.tscn" id="6_g4y41"]
+[ext_resource type="Script" uid="uid://sg78xfnx3wa8" path="res://example/facility/facility_panel.gd" id="6_hp16u"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lgr22"]
 size = Vector2(20, 20)
