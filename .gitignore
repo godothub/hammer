@@ -3,3 +3,6 @@
 .vscode/*
 /android/
 *.tmp
+
+# 测试项目
+time_curvature/
