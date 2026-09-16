@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dnktpjodm0e0o"]
+
+[ext_resource type="Script" uid="uid://6g61f5yfi1bj" path="res://example/tool/bullet.gd" id="1_hlcer"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3nx3k"]
+radius = 0.1
+height = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_npflr"]
+radius = 0.1
+height = 0.4
+
+[node name="Bullet" type="Area3D" unique_id=1270456652]
+script = ExtResource("1_hlcer")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1444321475]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_3nx3k")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1068928737]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_npflr")

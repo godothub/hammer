@@ -1,6 +1,6 @@
 extends UI
 
-@export var pause_key:StringName = "Pause"
+@export var pause_key:StringName = "game_pause"
 
 func _run() -> void:
 	hide()

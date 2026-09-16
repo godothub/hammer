@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dc5hdt84wkldm"]
 
 [ext_resource type="Script" uid="uid://br05osi1ofayn" path="res://example/player/player.gd" id="1_vjlsr"]
+[ext_resource type="Script" uid="uid://cqw6vo7tqukfw" path="res://example/tool/gun.gd" id="2_0cvr6"]
+[ext_resource type="PackedScene" uid="uid://dnktpjodm0e0o" path="res://example/tool/bullet.tscn" id="3_682cq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t6lng"]
 
@@ -18,11 +20,17 @@ _data = {
 &"walk": SubResource("Animation_rxg4x")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=33420398 node_paths=PackedStringArray("head_node", "tool_ray_cast")]
+[sub_resource type="CylinderMesh" id="CylinderMesh_npflr"]
+
+[node name="Player" type="CharacterBody3D" unique_id=33420398 node_paths=PackedStringArray("tool_marker", "target_ray_cast", "hold_marker", "head_node", "tool_list")]
 script = ExtResource("1_vjlsr")
+tool_marker = NodePath("Camera/ToolMarker")
+target_ray_cast = NodePath("Camera/RayCast")
+hold_marker = NodePath("Camera/HoldMarker")
 head_node = NodePath("Camera")
 health_range_control = NodePath("HUD/Health")
-tool_ray_cast = NodePath("Camera/RayCast")
+tool_current = 1
+tool_list = [NodePath("ToolGun")]
 action_current = &"walk"
 action_animation_player = NodePath("AnimationPlayer")
 action_property_table = Dictionary[StringName, Dictionary]({
@@ -31,7 +39,7 @@ action_property_table = Dictionary[StringName, Dictionary]({
 "move_speed": 5.0
 },
 &"walk": {
-"move_accel": 10.0,
+"move_accel": 15.0,
 "move_speed": 5.0
 }
 })
@@ -48,7 +56,11 @@ current = true
 [node name="ToolMarker" type="Marker3D" parent="Camera" unique_id=153841061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.5)
 
+[node name="HoldMarker" type="Marker3D" parent="Camera" unique_id=19827248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
 [node name="RayCast" type="RayCast3D" parent="Camera" unique_id=496919843]
+target_position = Vector3(0, 0, -100)
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1003098324]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -97,3 +109,21 @@ offset_bottom = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 step = 1.0
+
+[node name="ToolGun" type="Node3D" parent="." unique_id=1368945899 node_paths=PackedStringArray("bullet_marker")]
+script = ExtResource("2_0cvr6")
+bullet_resource = ExtResource("3_682cq")
+bullet_marker = NodePath("Marker")
+bullet_property_list = Dictionary[StringName, Variant]({
+&"damage": 10.0,
+&"speed": 100.0,
+&"timeout": 10.0
+})
+metadata/_custom_type_script = "uid://cqw6vo7tqukfw"
+
+[node name="Mesh" type="MeshInstance3D" parent="ToolGun" unique_id=1703665949]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_npflr")
+
+[node name="Marker" type="Marker3D" parent="ToolGun" unique_id=783834643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)

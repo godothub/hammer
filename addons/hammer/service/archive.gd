@@ -32,7 +32,7 @@ func save(_file:String) -> Error:
 	update_data()
 	return data.save(get_directory().path_join(_file))
 
-## 通过扩展此函数扩展运行存档的行为。
+## 通过重写此函数扩展运行存档的行为。
 func _play() -> void:pass
 ## 运行指定存档文件。
 func play(_file:String) -> Error:

@@ -20,6 +20,7 @@ func _change_scene(_facility:Facility) -> void:
 	"rigid": ["global_transform", "linear_velocity", "angular_velocity", "constant_force", "constant_torque"],
 	"facility": ["enable"]
 }
+
 func _update_data_groups() -> void:
 	for group:StringName in group_archive_table:
 		for node:Node in get_tree().get_nodes_in_group(group):
@@ -27,6 +28,7 @@ func _update_data_groups() -> void:
 			for property:String in group_archive_table[group]:
 				property_table.set(property, node.get(property))
 			ArchiveManager.set_value(scene_file_path, get_path_to(node), property_table)
+
 func _play() -> void:
 	if not ArchiveManager.has_section(scene_file_path):return
 	for group:StringName in group_archive_table:
@@ -34,7 +36,8 @@ func _play() -> void:
 			var property_table:Dictionary[StringName, Variant] = ArchiveManager.get_value(scene_file_path, get_path_to(node))
 			for property:String in property_table:
 				node.set(property, property_table[property])
-			
+
 func _init() -> void:
+	if Engine.is_editor_hint():return
 	ArchiveManager.update_data_signal.connect(_update_data_groups)
 	ready.connect(_play)
